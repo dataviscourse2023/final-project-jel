@@ -1,0 +1,47 @@
+body {
+    font-family: Arial, sans-serif;
+    /* background-image: url('path_to_forest_image.jpg');
+    background-size: cover; */
+    padding: 50px;
+}
+
+.container {
+    width: 80%;
+    max-width: 1000px;
+    margin: 0 auto;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 5px;
+    padding: 30px;
+}
+
+h1 {
+    color: #333;
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+details {
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+
+summary {
+    background-color: #f7a046;
+    color: white;
+    font-size: 1.5em;
+    padding: 10px;
+    cursor: pointer;
+    outline: none;
+}
+
+details[open] summary {
+    background-color: #e9833a;
+}
+
+p {
+    padding: 10px 20px;
+    background-color: #f2f2f2;
+    margin: 0;
+}
