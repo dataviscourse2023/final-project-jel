@@ -153,10 +153,6 @@ GIB,Gibraltar,2000,0
 GIB,Gibraltar,2010,0
 GIB,Gibraltar,2015,0
 GIN,Guinea,1990,-34700
-GLP,Guadeloupe,1990,-90
-GLP,Guadeloupe,2000,-70
-GLP,Guadeloupe,2010,130
-GLP,Guadeloupe,2015,-60
 GNQ,Equatorial Guinea,2000,-8360
 GNQ,Equatorial Guinea,2010,-8360
 GNQ,Equatorial Guinea,2015,-8360
@@ -278,10 +274,6 @@ MRT,Mauritania,1990,-5440
 MRT,Mauritania,2000,-5440
 MRT,Mauritania,2010,-5440
 MRT,Mauritania,2015,-5450
-MTQ,Martinique,1990,90
-MTQ,Martinique,2000,150
-MTQ,Martinique,2010,200
-MTQ,Martinique,2015,200
 MUS,Mauritius,1990,90
 MUS,Mauritius,2000,-350
 MUS,Mauritius,2010,-20
@@ -290,10 +282,6 @@ MWI,Malawi,1990,-42000
 MWI,Malawi,2000,-42000
 MWI,Malawi,2010,-42000
 MWI,Malawi,2015,-42000
-MYT,Mayotte,1990,-340
-MYT,Mayotte,2000,-130
-MYT,Mayotte,2010,-50
-MYT,Mayotte,2015,-50
 NER,Niger,1990,-61690
 NER,Niger,2000,-12420
 NER,Niger,2010,-12420
@@ -326,10 +314,6 @@ NZL,New Zealand,1990,47820
 NZL,New Zealand,2000,-230
 NZL,New Zealand,2010,-300
 NZL,New Zealand,2015,9200
-OWID_WRL,World,1990,-7818000
-OWID_WRL,World,2000,-5117000
-OWID_WRL,World,2010,-4801000
-OWID_WRL,World,2015,-5150000
 PAN,Panama,1990,-16530
 PAN,Panama,2000,-11420
 PAN,Panama,2010,-11420
@@ -466,11 +450,3 @@ ZWE,Zimbabwe,1990,-46070
 ZWE,Zimbabwe,2000,-46070
 ZWE,Zimbabwe,2010,-46070
 ZWE,Zimbabwe,2015,-46070
-,Faroe Islands,1990,0
-,French Guyana,1990,-4560
-,Faroe Islands,2000,0
-,French Guyana,2000,-4290
-,Faroe Islands,2010,0
-,French Guyana,2010,-3300
-,Faroe Islands,2015,0
-,French Guyana,2015,-3430
