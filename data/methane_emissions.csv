@@ -1,4 +1,4 @@
-﻿country_code,country,year,sector,methane_emissions
+﻿country_code,country_name,year,sector,value
 AFG,Afghanistan,2018,Total excluding LUCF,81.51
 AFG,Afghanistan,2017,Total excluding LUCF,79.61
 AFG,Afghanistan,2016,Total excluding LUCF,78.15

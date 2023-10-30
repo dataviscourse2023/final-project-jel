@@ -1,37 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <title>Team JEL Final Project</title>
-        <link rel="stylesheet" href="css/styles.css">
-        <script src="https://d3js.org/d3.v7.min.js"></script>
-        <script src="js/script.js"></script>
-        <script src="js/map.js"></script>
-        <script src="js/bar-chart.js"></script>
-    </head>
 
-    <body>
-        <div class="container">
-            <h1>Climate Change: Factors and Rates</h1>
-            <details>
-                <summary>Introduction</summary>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation...</p>
-            </details>
-            
-            <details>
-                <summary>Factors</summary>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation...</p>
-            </details>
-            
-            <details>
-                <summary>World Map Visualizer</summary>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation...</p>
-            </details>
-            
-            <details>
-                <summary>Conclusions</summary>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation...</p>
-            </details>
+<head>
+    <meta charset="utf-8">
+    <title>Team JEL Final Project</title>
+    <link rel="stylesheet" href="css/styles.css">
+
+    <!-- Trigger button -->
+    <button id="openModalBtn" hidden="true">Open Modal</button>
+
+    <!-- Modal -->
+    <div id="countryModal" class="modal">
+        <div class="modal-content">
+            <span id="closeModalBtn" class="close">&times;</span>
+            <h2 id="country_name"></h2>
+            <svg id="value"></svg>
         </div>
-    </body>
+    </div>
+
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://d3js.org/d3-geo-projection.v4.js"></script>
+    <script src="https://d3js.org/topojson.v3.js"></script>
+
+
+    <script src="js/script.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/bar-chart.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Climate Change: Factors and Rates</h1>
+        <details>
+            <summary>Introduction</summary>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation...</p>
+        </details>
+
+        <details>
+            <summary>Factors</summary>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation...</p>
+        </details>
+
+        <details>
+            <summary>World Map Visualizer</summary>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation...</p>
+
+            <button id="co2Btn">Co2</button>
+            <button id="methaneBtn">Methane</button>
+            <button id="deforestationBtn">Deforestation</button>
+            <button id="temperatureBtn">Temperature</button>
+
+            <div id="content">
+                <svg id="map">
+                    <g id="graticules"></g>
+                    <g id="countries"></g>
+                </svg>
+            </div>
+        </details>
+
+        <details>
+            <summary>Conclusions</summary>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation...</p>
+        </details>
+    </div>
+</body>
+
 </html>

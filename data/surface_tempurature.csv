@@ -1,4 +1,4 @@
-﻿country_code,country,year,temperature
+﻿country_code,country_name,year,value
 AFG,Afghanistan,1961,-0.113
 AFG,Afghanistan,1962,-0.164
 AFG,Afghanistan,1963,0.847
