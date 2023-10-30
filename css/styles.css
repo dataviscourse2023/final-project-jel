@@ -123,3 +123,14 @@ p {
     text-decoration: none;
     cursor: pointer;
 }
+
+#button-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.category-button {
+    margin-left: 20px;
+    width: 100px;
+    background-color: aqua; /* Temp background color. Change this. */
+}

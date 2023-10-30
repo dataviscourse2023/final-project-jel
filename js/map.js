@@ -101,9 +101,10 @@ class MapVis {
     displayModal(event) {
         // TODO: Implement error handling for when countryName is undefined
         const countryName = this.globalApplicationState.Data.filter(d => d.country_code === event.currentTarget.id)[0].country_name;
-        
+        const value = this.globalApplicationState.Data.filter(d => d.country_code === event.currentTarget.id)[0].value;
         // if (countryName != undefined) {
             d3.select('#country_name').text(countryName);
+            d3.select('#value').text(value);
             modal.style.display = 'block';
         // }
     }

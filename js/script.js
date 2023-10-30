@@ -36,28 +36,28 @@ loadData().then((loadedData) => {
     globalApplicationState.worldMap = worldMap;
     // globalApplicationState.lineChart = lineChart;
 
-    d3.select('#co2Btn')
+    d3.select('#co2-button')
         .on('click', () => {
             globalApplicationState.Data = null;
             globalApplicationState.Data = loadedData.dataArrays[0];
             worldMap.renderMap();
         });
 
-        d3.select('#methaneBtn')
+        d3.select('#methane-button')
         .on('click', () => {
             globalApplicationState.Data = null;
             globalApplicationState.Data = loadedData.dataArrays[1];
             worldMap.renderMap();
         });
 
-        d3.select('#deforestationBtn')
+        d3.select('#deforestation-button')
         .on('click', () => {
             globalApplicationState.Data = null;
             globalApplicationState.Data = loadedData.dataArrays[2];
             worldMap.renderMap();
         });
 
-        d3.select('#temperatureBtn')
+        d3.select('#temperature-button')
         .on('click', () => {
             globalApplicationState.Data = null;
             globalApplicationState.Data = loadedData.dataArrays[3];
