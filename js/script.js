@@ -63,6 +63,12 @@ loadData().then((loadedData) => {
             globalApplicationState.Data = loadedData.dataArrays[3];
             worldMap.renderMap();
         });
+
+        d3.select('#year-slider')
+        .on('input', () => {
+            const year = d3.select('#year-slider').property('value');
+            worldMap.slider(year);
+        });
 });
 
 // Get modal element

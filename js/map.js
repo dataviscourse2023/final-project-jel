@@ -21,13 +21,48 @@ class MapVis {
         this.renderMap(path);
     }
 
-    renderMap(path) {
-        const geoJSON = topojson.feature(this.globalApplicationState.mapData, this.globalApplicationState.mapData.objects.countries);
+
+    slider (year) {
+
+        // TODO: Clean up this code and make it reusable
         const maxValues = d3.rollup(
-            this.globalApplicationState.Data,
+            this.globalApplicationState.Data.filter(d => d.year === year),
             v => d3.max(v, d => +d.value),
             d => d.country_code
         );
+
+        const overallValues = d3.max(Array.from(maxValues.values()));
+
+        const colorScale = d3.scaleSequential(d3.interpolateReds)
+            .domain([0, overallValues]);
+
+        this.countries.selectAll('.country')
+            .style('fill', d => {
+                const countrymaxValues = maxValues.get(d.id);
+                if (countrymaxValues !== undefined) {
+                    return colorScale(countrymaxValues);
+                } else {
+                    return '#ccc';
+                }
+            });
+    }
+
+    renderMap(path) {
+        const geoJSON = topojson.feature(this.globalApplicationState.mapData, this.globalApplicationState.mapData.objects.countries);
+        // const maxValues = d3.rollup(
+        //     this.globalApplicationState.Data,
+        //     v => d3.max(v, d => +d.value),
+        //     d => d.country_code
+        // );
+
+        const year = d3.select('#year-slider').property('value');
+
+        const maxValues = d3.rollup(
+            this.globalApplicationState.Data.filter(d => d.year === year),
+            v => d3.max(v, d => +d.value),
+            d => d.country_code
+        );
+
         const overallValues = d3.max(Array.from(maxValues.values()));
         const colorScale = d3.scaleSequential(d3.interpolateReds)
             .domain([0, overallValues]);
