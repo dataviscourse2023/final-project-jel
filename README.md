@@ -41,3 +41,4 @@
  - The user can switch between years using the slider to the top left of the map.
    - Year marks will be added for the final project.
  - Map colors only display for certain dates for deforestation. This is because the data for deforestation is only available for certain years. For the final project, the slider will only display years for which data is available.
+ - A color scale will be added to the map for the final project.
