@@ -19,6 +19,14 @@ class LineChartVis {
 
     renderLineChart() {
         const data = d3.filter(this.globalApplicationState.Data, d => d.country_code === this.globalApplicationState.selectedLocations[0]);
+
+        // Add global average temperature to bring it to actual temperature
+        if (this.globalApplicationState.selectedFactor === 'temperature') {
+            for (let d of data) {
+                d.value = parseFloat(d.value) + 15.0; // 15 is a placeholder. Get global average temperature
+            }
+        }
+
         const lines = this.lineChart.select('#lines');
 
         const xScale = d3.scaleTime()
@@ -29,8 +37,10 @@ class LineChartVis {
             .attr('transform', `translate(${this.margin.left * 2}, ${this.height})`)
             .call(d3.axisBottom(xScale));
 
+        console.log(d3.extent(data, d => parseFloat(d.value)));
+
         const yScale = d3.scaleLinear()
-            .domain(d3.extent(data, d => d.value))
+            .domain(d3.extent(data, d => parseFloat(d.value)).sort(d3.ascending))
             .range([this.height - this.margin.top - this.margin.bottom, 0]).nice();
 
         d3.select('#y-axis')
