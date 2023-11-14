@@ -107,7 +107,7 @@ p {
     margin: 15% auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 70%;
+    width: 700px;
 }
 
 .close {
@@ -124,13 +124,45 @@ p {
     cursor: pointer;
 }
 
-#button-container {
-    text-align: center;
+#map-interaction-container {
+    /* text-align: center; */
     margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .category-button {
-    margin-left: 20px;
+    /* margin-left: 20px; */
+    justify-content: space-between;
     width: 100px;
     background-color: aqua; /* Temp background color. Change this. */
+    margin: 10px;
+}
+
+#year-slider {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.slider-text {
+    /* transform: rotate(-45deg); */
+    font-size: xx-small;
+}
+
+#year-slider-value {
+    width: 100%;
+    margin-top: 5px;
+    display: flex;
+    /* flex-direction: row; */
+    justify-content: space-between;
+    /* align-items: center; */
+}
+
+#year-slider-container {
+    width: 75%;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-between; */
+    align-items: center;
 }

@@ -15,52 +15,58 @@ async function loadData() {
 // ******* STATE MANAGEMENT *******
 const globalApplicationState = {
     selectedLocations: [],
+    selectedFactor: null,
     Data: null,
     mapData: null,
     worldMap: null,
-    // lineChart: null,
+    lineChart: null
 };
 
 //******* APPLICATION MOUNTING *******
 loadData().then((loadedData) => {
-    console.log('Here is the imported data:', loadedData.dataArrays[0]);
+    // console.log('Here is the imported data:', loadedData.dataArrays[0]);
 
     // Store the loaded data into the globalApplicationState
-    globalApplicationState.Data = loadedData.dataArrays[0];
+    globalApplicationState.Data = d3.filter(loadedData.dataArrays[0], d => d.year >= '1990' && d.year <= '2015');
     globalApplicationState.mapData = loadedData.mapData;
 
     // Creates the view objects with the global state passed in 
     const worldMap = new MapVis(globalApplicationState);
-    // const lineChart = new LineChart(globalApplicationState);
+    const lineChart = new LineChartVis(globalApplicationState);
 
     globalApplicationState.worldMap = worldMap;
-    // globalApplicationState.lineChart = lineChart;
+    globalApplicationState.lineChart = lineChart;
 
     d3.select('#co2-button')
         .on('click', () => {
             globalApplicationState.Data = null;
-            globalApplicationState.Data = loadedData.dataArrays[0];
+            globalApplicationState.Data = d3.filter(loadedData.dataArrays[0], d => d.year >= '1990' && d.year <= '2015');
+            globalApplicationState.selectedFactor = 'co2';
             worldMap.renderMap();
         });
 
         d3.select('#methane-button')
         .on('click', () => {
             globalApplicationState.Data = null;
-            globalApplicationState.Data = loadedData.dataArrays[1];
+            globalApplicationState.Data = d3.filter(loadedData.dataArrays[1], d => d.year >= '1990' && d.year <= '2015' && d.sector === 'Total excluding LUCF');
+            globalApplicationState.selectedFactor = 'methane';
             worldMap.renderMap();
         });
 
         d3.select('#deforestation-button')
         .on('click', () => {
             globalApplicationState.Data = null;
-            globalApplicationState.Data = loadedData.dataArrays[2];
+            globalApplicationState.Data = d3.filter(loadedData.dataArrays[2], d => d.year >= '1990' && d.year <= '2015');
+            globalApplicationState.selectedFactor = 'deforestation';
             worldMap.renderMap();
+            worldMap.renderSlider();
         });
 
         d3.select('#temperature-button')
         .on('click', () => {
             globalApplicationState.Data = null;
-            globalApplicationState.Data = loadedData.dataArrays[3];
+            globalApplicationState.Data = d3.filter(loadedData.dataArrays[3], d => d.year >= '1990' && d.year <= '2015');
+            globalApplicationState.selectedFactor = 'temperature';
             worldMap.renderMap();
         });
 

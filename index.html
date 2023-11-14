@@ -14,7 +14,11 @@
         <div class="modal-content">
             <span id="closeModalBtn" class="close">&times;</span>
             <h2 id="country_name"></h2>
-            <h3 id="value"></h3>
+            <svg id="line-chart">
+                <g id="x-axis"></g>
+                <g id="y-axis"></g>
+                <g id="lines"></g>
+            </svg>
             <!-- <svg id="value"></svg> -->
         </div>
     </div>
@@ -26,6 +30,7 @@
 
     <script src="js/script.js"></script>
     <script src="js/map.js"></script>
+    <script src="js/line-chart.js"></script>
     <script src="js/bar-chart.js"></script>
 </head>
 
@@ -35,11 +40,12 @@
         <details>
             <summary>Introduction</summary>
             <h2><em><u>What is Climate Change?</u></em></h2>
-            <p> The term <b>climate change</b> refers to long-term shifts in temperatures and weather patterns. It can also be referred
+            <p> The term <b>climate change</b> refers to long-term shifts in temperatures and weather patterns. It can
+                also be referred
                 to as 'The Climate Crisis'. </p>
-                
-            <p>The climate crisis being an universal issue between countries and continents. 
-                This topic has been discussed among scientists and environmentalists for years 
+
+            <p>The climate crisis being an universal issue between countries and continents.
+                This topic has been discussed among scientists and environmentalists for years
                 and will continue to be discussed for many more....</p>
         </details>
 
@@ -49,22 +55,22 @@
                 dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation...</p>
         </details>
 
-        <details>
+        <details open>
             <summary>World Map Visualizer</summary>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
                 dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation...</p>
-
-            <!-- Change to d3 slider -->
-            <input type="range" id="year-slider" min="1990" max="2015" value="2015">
-            
-            <!-- Change to d3 buttons -->
-            <div id="button-container">
-                <button class="category-button" id="co2-button">Co2</button>
-                <button class="category-button" id="methane-button">Methane</button>
-                <button class="category-button" id="deforestation-button">Deforestation</button>
-                <button class="category-button" id="temperature-button">Temperature</button>
+            <div id="map-interaction-container">
+                <div>
+                    <button class="category-button" id="co2-button">Co2</button>
+                    <button class="category-button" id="methane-button">Methane</button>
+                    <button class="category-button" id="deforestation-button">Deforestation</button>
+                    <button class="category-button" id="temperature-button">Temperature</button>
+                </div>
+                <div id="year-slider-container">
+                    <input type="range" id="year-slider" min="1990" max="2015" value="1990" step="1">
+                    <div id="year-slider-value"></div>
+                </div>
             </div>
-
             <div id="content">
                 <svg id="map">
                     <g id="graticules"></g>

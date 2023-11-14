@@ -9,10 +9,12 @@ class MapVis {
     constructor(globalApplicationState) {
         this.globalApplicationState = globalApplicationState;
 
+        const mapWidth = d3.select('#map').node().clientWidth;
+
         // Set up the map projection
         const projection = d3.geoWinkel3()
-            .scale(150) // This set the size of the map
-            .translate([400, 250]); // This moves the map to the center of the SVG
+            .scale(125) // This set the size of the map
+            .translate([345, 250]); // This moves the map to the center of the SVG
 
         const path = d3.geoPath()
             .projection(projection);
@@ -22,7 +24,7 @@ class MapVis {
     }
 
 
-    slider (year) {
+    slider(year) {
 
         // TODO: Clean up this code and make it reusable
         const maxValues = d3.rollup(
@@ -89,6 +91,34 @@ class MapVis {
                     return '#ccc';
                 }
             });
+
+        this.renderSlider();
+    }
+
+    renderSlider() {
+        const sliderValue = d3.select('#year-slider-value');
+        const slider = d3.select('#year-slider');
+        let a;
+
+        if (this.globalApplicationState.selectedFactor === 'deforestation') {
+            slider.attr('step', 10);
+            slider.attr('max', 2010);
+            a = [...new Set(this.globalApplicationState.Data.map(d => d.year))].filter(d => (d >= 1990 && d <= 2010) && d % 5 === 0);
+        } else {
+            slider.attr('step', 1);
+            slider.attr('max', 2015);
+            a = [...new Set(this.globalApplicationState.Data.map(d => d.year))].filter(d => (d >= 1990 && d <= 2015) && d % 5 === 0);
+        }
+        a.sort((a, b) => a - b);
+        
+        sliderValue.selectAll('div').remove();
+        sliderValue.selectAll('div')
+            .data(a)
+            .enter().append('div')
+            .attr('x', 10)
+            .attr('y', 5)
+            .text(d => d)
+            .attr('class', 'slider-text');
     }
 
     renderGraticules(path) {
@@ -120,7 +150,9 @@ class MapVis {
             .transition()
             .duration(0)
             .style('opacity', 1);
-        // .style("stroke", "black");        
+            // .style("stroke", "black")
+            // .style("stroke-width", "2px")
+            // .style("stroke-opacity", 1);        
     }
 
     // Adapted from https://d3-graph-gallery.com/graph/choropleth_hover_effect.html
@@ -134,13 +166,21 @@ class MapVis {
     }
 
     displayModal(event) {
+
+        this.globalApplicationState.selectedLocations = [event.currentTarget.id];
+        this.globalApplicationState.lineChart.renderLineChart();
+
         // TODO: Implement error handling for when countryName is undefined
         const countryName = this.globalApplicationState.Data.filter(d => d.country_code === event.currentTarget.id)[0].country_name;
         const value = this.globalApplicationState.Data.filter(d => d.country_code === event.currentTarget.id)[0].value;
+
+
+
+
         // if (countryName != undefined) {
-            d3.select('#country_name').text(countryName);
-            d3.select('#value').text(value);
-            modal.style.display = 'block';
+        d3.select('#country_name').text(countryName);
+        d3.select('#value').text(value);
+        modal.style.display = 'block';
         // }
     }
 }
