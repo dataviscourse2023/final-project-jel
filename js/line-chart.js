@@ -11,10 +11,11 @@ class LineChartVis {
         this.globalApplicationState = globalApplicationState;
         this.margin = { top: 20, right: 20, bottom: 20, left: 35 };
         this.width = 700 - this.margin.left - this.margin.right;
-        this.height = 800 - this.margin.top - this.margin.bottom;
+        this.height = 500 - this.margin.top - this.margin.bottom;
         this.lineChart = d3.select('#line-chart')
             .attr('width', this.width + this.margin.left + this.margin.right)
             .attr('height', this.height + this.margin.top + this.margin.bottom);
+        this.ANIMATION_DUATION = 3000;
     }
 
     renderLineChart() {
@@ -51,11 +52,28 @@ class LineChartVis {
             .x(d => xScale(new Date(d.year)) + this.margin.left * 2)
             .y(d => yScale(d.value) + this.margin.top * 2);
 
+
+
         lines.selectAll('*').remove();
         lines.append('path')
             .datum(data)
             .attr('class', 'line')
             .attr('d', line)
+
+            // Experimenting with animation
+
+            // .transition()
+            // .duration(this.ANIMATION_DUATION)
+            // .attrTween('stroke-dasharray', function () {
+            //     const l = this.getTotalLength(),
+            //         // Returns an interpolator between the two given strings
+            //         i = d3.interpolateString('0,' + l, l + ',' + l); // Interpolate between 0,1 and 1,1
+            //     // Return a function that takes a single argument 't' between 0 and 1 representing the progress of the animation
+            //     return function (t) {
+            //         // Call the interpolator with the current progress of the animation
+            //         return i(t);
+            //     };
+            // })
             .attr('fill', 'none')
             .attr('stroke', 'steelblue')
             .attr('stroke-width', 2)

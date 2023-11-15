@@ -9,12 +9,12 @@ class MapVis {
     constructor(globalApplicationState) {
         this.globalApplicationState = globalApplicationState;
 
-        const mapWidth = d3.select('#map').node().clientWidth;
+        const contentWidth = d3.select('#content').node().clientWidth;
 
         // Set up the map projection
         const projection = d3.geoWinkel3()
             .scale(125) // This set the size of the map
-            .translate([345, 250]); // This moves the map to the center of the SVG
+            .translate([contentWidth / 2, 250]); // This moves the map to the center of the SVG
 
         const path = d3.geoPath()
             .projection(projection);
@@ -38,7 +38,16 @@ class MapVis {
         const colorScale = d3.scaleSequential(d3.interpolateReds)
             .domain([0, overallValues]);
 
-        this.countries.selectAll('.country')
+        // Experimenting with transitions
+        const countries = this.countries.selectAll('.country');
+        // countries
+        //     .transition()
+        //     .duration(30)
+        //     .style('opacity', 0);
+
+        countries
+            // .transition()
+            // .duration(300)
             .style('fill', d => {
                 const countrymaxValues = maxValues.get(d.id);
                 if (countrymaxValues !== undefined) {
@@ -46,7 +55,9 @@ class MapVis {
                 } else {
                     return '#ccc';
                 }
-            });
+            })
+
+        // .style('opacity', 1);
     }
 
     renderMap(path) {
@@ -92,7 +103,44 @@ class MapVis {
                 }
             });
 
+        this.drawMapLegend(overallValues, colorScale);
+
+
         this.renderSlider();
+    }
+
+    drawMapLegend(overallValues, colorScale) {
+
+        // The legend is not redrawing correctly when switching between factors
+        const legend = d3.select('#legend').append('g')
+            .attr('transform', 'translate(0,0)');
+        const legendText = d3.select('#legend-text');
+        const legendWidth = d3.select('#legend-container').node().clientWidth;
+        const legendHeight = 20;
+        const legendScale = d3.scaleLinear()
+            .domain([0, overallValues])
+            .range([0, legendWidth]);
+        const legendValues = legendScale.ticks(10);
+
+        legend.selectAll('rect')
+            .data(legendValues)
+            .enter().append('rect')
+            .attr('x', d => legendScale(d))
+            .attr('y', 0)
+            .attr('width', legendWidth / legendValues.length)
+            .attr('height', legendHeight)
+            .style('fill', d => colorScale(d));
+
+        legendText.selectAll('div').remove();
+        legendText.selectAll('div')
+            .data(legendValues)
+            .enter().append('div')
+            .attr('x', d => legendScale(d))
+            .attr('y', legendHeight * 2)
+            // .attr('x', 10)
+            // .attr('y', 5)
+            .text(d => d)
+            .attr('class', 'l-text');
     }
 
     renderSlider() {
@@ -110,7 +158,7 @@ class MapVis {
             a = [...new Set(this.globalApplicationState.Data.map(d => d.year))].filter(d => (d >= 1990 && d <= 2015) && d % 5 === 0);
         }
         a.sort((a, b) => a - b);
-        
+
         sliderValue.selectAll('div').remove();
         sliderValue.selectAll('div')
             .data(a)
@@ -150,9 +198,9 @@ class MapVis {
             .transition()
             .duration(0)
             .style('opacity', 1);
-            // .style("stroke", "black")
-            // .style("stroke-width", "2px")
-            // .style("stroke-opacity", 1);        
+        // .style("stroke", "black")
+        // .style("stroke-width", "2px")
+        // .style("stroke-opacity", 1);        
     }
 
     // Adapted from https://d3-graph-gallery.com/graph/choropleth_hover_effect.html

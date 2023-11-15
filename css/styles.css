@@ -47,10 +47,8 @@ p {
 }
 
 #map {
-    width: 800px;
-    height: 500px;
-    display: block;
-    margin: 0 auto;
+    width: 100%;
+    height: 450px;
 }
 
 #value {
@@ -125,7 +123,6 @@ p {
 }
 
 #map-interaction-container {
-    /* text-align: center; */
     margin-top: 20px;
     display: flex;
     flex-direction: column;
@@ -133,7 +130,6 @@ p {
 }
 
 .category-button {
-    /* margin-left: 20px; */
     justify-content: space-between;
     width: 100px;
     background-color: aqua; /* Temp background color. Change this. */
@@ -150,19 +146,35 @@ p {
     font-size: xx-small;
 }
 
-#year-slider-value {
-    width: 100%;
-    margin-top: 5px;
-    display: flex;
-    /* flex-direction: row; */
-    justify-content: space-between;
-    /* align-items: center; */
-}
-
 #year-slider-container {
     width: 75%;
     display: flex;
     flex-direction: column;
-    /* justify-content: space-between; */
     align-items: center;
+}
+
+#year-slider-value {
+    width: 100%;
+    margin-top: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+
+#legend-container {
+    height: 60px;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 30px;
+}
+
+#legend-text {
+    display: flex;
+}
+
+.l-text {
+    transform: rotate(-45deg);
+    font-size: 3%;
+    margin-bottom: 20px;
 }
