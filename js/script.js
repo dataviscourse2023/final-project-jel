@@ -1,6 +1,9 @@
 // world.json source: Visualization for Data Science Homework 4
 // Adapted from Visualization for Data Science Homework 4
 
+const START_DATE = 1990;
+const END_DATE = 2015;
+
 // ******* DATA LOADING *******
 async function loadData() {
     const co2EmissionsData = await d3.csv('data/co2_emissions.csv');
@@ -27,7 +30,7 @@ loadData().then((loadedData) => {
     // console.log('Here is the imported data:', loadedData.dataArrays[0]);
 
     // Store the loaded data into the globalApplicationState
-    globalApplicationState.Data = d3.filter(loadedData.dataArrays[0], d => d.year >= '1990' && d.year <= '2015');
+    globalApplicationState.Data = d3.filter(loadedData.dataArrays[0], d => d.year >= START_DATE && d.year <= END_DATE);
     globalApplicationState.mapData = loadedData.mapData;
 
     // Creates the view objects with the global state passed in 
@@ -40,7 +43,7 @@ loadData().then((loadedData) => {
     d3.select('#co2-button')
         .on('click', () => {
             globalApplicationState.Data = null;
-            globalApplicationState.Data = d3.filter(loadedData.dataArrays[0], d => d.year >= '1990' && d.year <= '2015');
+            globalApplicationState.Data = d3.filter(loadedData.dataArrays[0], d => d.year >= START_DATE && d.year <= END_DATE);
             globalApplicationState.selectedFactor = 'co2';
             worldMap.renderMap();
         });
@@ -48,7 +51,7 @@ loadData().then((loadedData) => {
         d3.select('#methane-button')
         .on('click', () => {
             globalApplicationState.Data = null;
-            globalApplicationState.Data = d3.filter(loadedData.dataArrays[1], d => d.year >= '1990' && d.year <= '2015' && d.sector === 'Total excluding LUCF');
+            globalApplicationState.Data = d3.filter(loadedData.dataArrays[1], d => d.year >= START_DATE && d.year <= END_DATE && d.sector === 'Total excluding LUCF');
             globalApplicationState.selectedFactor = 'methane';
             worldMap.renderMap();
         });
@@ -56,7 +59,7 @@ loadData().then((loadedData) => {
         d3.select('#deforestation-button')
         .on('click', () => {
             globalApplicationState.Data = null;
-            globalApplicationState.Data = d3.filter(loadedData.dataArrays[2], d => d.year >= '1990' && d.year <= '2015');
+            globalApplicationState.Data = d3.filter(loadedData.dataArrays[2], d => d.year >= START_DATE && d.year <= END_DATE);
             globalApplicationState.selectedFactor = 'deforestation';
             worldMap.renderMap();
             worldMap.renderSlider();
@@ -65,7 +68,7 @@ loadData().then((loadedData) => {
         d3.select('#temperature-button')
         .on('click', () => {
             globalApplicationState.Data = null;
-            globalApplicationState.Data = d3.filter(loadedData.dataArrays[3], d => d.year >= '1990' && d.year <= '2015');
+            globalApplicationState.Data = d3.filter(loadedData.dataArrays[3], d => d.year >= START_DATE && d.year <= END_DATE);
             globalApplicationState.selectedFactor = 'temperature';
             worldMap.renderMap();
         });

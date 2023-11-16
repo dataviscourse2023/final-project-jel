@@ -171,10 +171,11 @@ p {
 
 #legend-text {
     display: flex;
+    justify-content: space-between;
 }
 
 .l-text {
     transform: rotate(-45deg);
-    font-size: 3%;
+    font-size: 5%;
     margin-bottom: 20px;
 }

@@ -19,6 +19,12 @@ class MapVis {
         const path = d3.geoPath()
             .projection(projection);
 
+        // this.co2MaxValues = d3.rollup(
+        //     this.globalApplicationState.Data.filter(d => d.year === year),
+        //     v => d3.max(v, d => +d.value),
+        //     d => d.country_code
+        // );
+
         this.renderGraticules(path);
         this.renderMap(path);
     }
@@ -33,7 +39,7 @@ class MapVis {
             d => d.country_code
         );
 
-        const overallValues = d3.max(Array.from(maxValues.values()));
+        const overallValues = d3.max(this.globalApplicationState.Data, d => +d.value);
 
         const colorScale = d3.scaleSequential(d3.interpolateReds)
             .domain([0, overallValues]);
@@ -76,7 +82,7 @@ class MapVis {
             d => d.country_code
         );
 
-        const overallValues = d3.max(Array.from(maxValues.values()));
+        const overallValues = d3.max(this.globalApplicationState.Data, d => +d.value);
         const colorScale = d3.scaleSequential(d3.interpolateReds)
             .domain([0, overallValues]);
 
@@ -105,11 +111,12 @@ class MapVis {
 
         this.drawMapLegend(overallValues, colorScale);
 
-
         this.renderSlider();
     }
 
     drawMapLegend(overallValues, colorScale) {
+
+        console.log(overallValues);
 
         // The legend is not redrawing correctly when switching between factors
         const legend = d3.select('#legend').append('g')
@@ -119,9 +126,10 @@ class MapVis {
         const legendHeight = 20;
         const legendScale = d3.scaleLinear()
             .domain([0, overallValues])
-            .range([0, legendWidth]);
+            .range([0, legendWidth]).nice(); // Fix the width
         const legendValues = legendScale.ticks(10);
 
+        legendText.selectAll('rect').remove();
         legend.selectAll('rect')
             .data(legendValues)
             .enter().append('rect')
@@ -135,10 +143,10 @@ class MapVis {
         legendText.selectAll('div')
             .data(legendValues)
             .enter().append('div')
-            .attr('x', d => legendScale(d))
-            .attr('y', legendHeight * 2)
-            // .attr('x', 10)
-            // .attr('y', 5)
+            // .attr('x', d => legendScale(d))
+            // .attr('y', legendHeight * 2)
+            .attr('x', 10)
+            .attr('y', 5)
             .text(d => d)
             .attr('class', 'l-text');
     }
@@ -169,6 +177,10 @@ class MapVis {
             .attr('class', 'slider-text');
     }
 
+    /**
+     * Renders graticules on the map.
+     * @param {function} path - The path generator function.
+     */
     renderGraticules(path) {
         const graticules = d3.select('#map')
             .select('#graticules');
