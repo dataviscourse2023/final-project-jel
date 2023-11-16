@@ -45,7 +45,7 @@ loadData().then((loadedData) => {
             globalApplicationState.Data = null;
             globalApplicationState.Data = d3.filter(loadedData.dataArrays[0], d => d.year >= START_DATE && d.year <= END_DATE);
             globalApplicationState.selectedFactor = 'co2';
-            worldMap.renderMap();
+            worldMap.drawMap();
         });
 
         d3.select('#methane-button')
@@ -53,7 +53,7 @@ loadData().then((loadedData) => {
             globalApplicationState.Data = null;
             globalApplicationState.Data = d3.filter(loadedData.dataArrays[1], d => d.year >= START_DATE && d.year <= END_DATE && d.sector === 'Total excluding LUCF');
             globalApplicationState.selectedFactor = 'methane';
-            worldMap.renderMap();
+            worldMap.drawMap();
         });
 
         d3.select('#deforestation-button')
@@ -61,8 +61,8 @@ loadData().then((loadedData) => {
             globalApplicationState.Data = null;
             globalApplicationState.Data = d3.filter(loadedData.dataArrays[2], d => d.year >= START_DATE && d.year <= END_DATE);
             globalApplicationState.selectedFactor = 'deforestation';
-            worldMap.renderMap();
-            worldMap.renderSlider();
+            worldMap.drawMap();
+            worldMap.drawSlider();
         });
 
         d3.select('#temperature-button')
@@ -70,7 +70,7 @@ loadData().then((loadedData) => {
             globalApplicationState.Data = null;
             globalApplicationState.Data = d3.filter(loadedData.dataArrays[3], d => d.year >= START_DATE && d.year <= END_DATE);
             globalApplicationState.selectedFactor = 'temperature';
-            worldMap.renderMap();
+            worldMap.drawMap();
         });
 
         d3.select('#year-slider')

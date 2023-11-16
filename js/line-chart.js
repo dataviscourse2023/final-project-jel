@@ -18,15 +18,15 @@ class LineChartVis {
         this.ANIMATION_DUATION = 3000;
     }
 
-    renderLineChart() {
+    drawLineChart() {
         const data = d3.filter(this.globalApplicationState.Data, d => d.country_code === this.globalApplicationState.selectedLocations[0]);
 
         // Add global average temperature to bring it to actual temperature
-        if (this.globalApplicationState.selectedFactor === 'temperature') {
-            for (let d of data) {
-                d.value = parseFloat(d.value) + 15.0; // 15 is a placeholder. Get global average temperature
-            }
-        }
+        // if (this.globalApplicationState.selectedFactor === 'temperature') {
+        //     for (let d of data) {
+        //         d.value = parseFloat(d.value) + 15.0; // 15 is a placeholder. Get global average temperature
+        //     }
+        // }
 
         const lines = this.lineChart.select('#lines');
 

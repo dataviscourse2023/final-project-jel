@@ -25,11 +25,15 @@ class MapVis {
         //     d => d.country_code
         // );
 
-        this.renderGraticules(path);
-        this.renderMap(path);
+        this.drawGraticules(path);
+        this.drawMap(path);
     }
 
 
+    /**
+     * Updates the map with data for a given year.
+     * @param {number} year - The year to update the map with.
+     */
     slider(year) {
 
         // TODO: Clean up this code and make it reusable
@@ -66,7 +70,12 @@ class MapVis {
         // .style('opacity', 1);
     }
 
-    renderMap(path) {
+
+    /**
+     * Draws a map using the provided path and data.
+     * @param {string} path - The path to use for drawing the map.
+     */
+    drawMap(path) {
         const geoJSON = topojson.feature(this.globalApplicationState.mapData, this.globalApplicationState.mapData.objects.countries);
         // const maxValues = d3.rollup(
         //     this.globalApplicationState.Data,
@@ -111,9 +120,15 @@ class MapVis {
 
         this.drawMapLegend(overallValues, colorScale);
 
-        this.renderSlider();
+        this.drawSlider();
     }
 
+
+    /**
+     * Draws a legend for the map based on the given overall values and color scale.
+     * @param {number} overallValues - The overall values to use for the legend.
+     * @param {function} colorScale - The color scale to use for the legend.
+     */
     drawMapLegend(overallValues, colorScale) {
 
         console.log(overallValues);
@@ -121,12 +136,12 @@ class MapVis {
         // The legend is not redrawing correctly when switching between factors
         const legend = d3.select('#legend').append('g')
             .attr('transform', 'translate(0,0)');
-        const legendText = d3.select('#legend-text');
+        const legendText = d3.select('#legend-text-container');
         const legendWidth = d3.select('#legend-container').node().clientWidth;
         const legendHeight = 20;
         const legendScale = d3.scaleLinear()
             .domain([0, overallValues])
-            .range([0, legendWidth]).nice(); // Fix the width
+            .range([0, legendWidth]); // Fix the width
         const legendValues = legendScale.ticks(10);
 
         legendText.selectAll('rect').remove();
@@ -148,10 +163,14 @@ class MapVis {
             .attr('x', 10)
             .attr('y', 5)
             .text(d => d)
-            .attr('class', 'l-text');
+            .attr('class', 'legend-text');
     }
 
-    renderSlider() {
+
+    /**
+     * Draws a slider based on the selected factor in the global application state.
+     */
+    drawSlider() {
         const sliderValue = d3.select('#year-slider-value');
         const slider = d3.select('#year-slider');
         let a;
@@ -177,11 +196,12 @@ class MapVis {
             .attr('class', 'slider-text');
     }
 
+    
     /**
-     * Renders graticules on the map.
+     * Draws graticules on the map using the provided path.
      * @param {function} path - The path generator function.
      */
-    renderGraticules(path) {
+    drawGraticules(path) {
         const graticules = d3.select('#map')
             .select('#graticules');
         const grat = d3.geoGraticule();
@@ -228,7 +248,7 @@ class MapVis {
     displayModal(event) {
 
         this.globalApplicationState.selectedLocations = [event.currentTarget.id];
-        this.globalApplicationState.lineChart.renderLineChart();
+        this.globalApplicationState.lineChart.drawLineChart();
 
         // TODO: Implement error handling for when countryName is undefined
         const countryName = this.globalApplicationState.Data.filter(d => d.country_code === event.currentTarget.id)[0].country_name;
