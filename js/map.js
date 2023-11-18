@@ -118,52 +118,52 @@ class MapVis {
                 }
             });
 
-        this.drawMapLegend(overallValues, colorScale);
+        this.drawMapScale(overallValues, colorScale);
 
         this.drawSlider();
     }
 
 
     /**
-     * Draws a legend for the map based on the given overall values and color scale.
-     * @param {number} overallValues - The overall values to use for the legend.
-     * @param {function} colorScale - The color scale to use for the legend.
+     * Draws the map scale based on the provided overall values and color scale.
+     * @param {number} overallValues - The overall values used to determine the scale.
+     * @param {function} colorScale - The color scale used to assign colors to the scale.
      */
-    drawMapLegend(overallValues, colorScale) {
+    drawMapScale(overallValues, colorScale) {
 
         console.log(overallValues);
 
-        // The legend is not redrawing correctly when switching between factors
-        const legend = d3.select('#legend').append('g')
+        // The scale is not redrawing correctly when switching between factors
+        const mapScale = d3.select('#map-scale').append('g')
             .attr('transform', 'translate(0,0)');
-        const legendText = d3.select('#legend-text-container');
-        const legendWidth = d3.select('#legend-container').node().clientWidth;
-        const legendHeight = 20;
-        const legendScale = d3.scaleLinear()
+        const scaleText = d3.select('#scale-text-container');
+        const scaleWidth = d3.select('#scale-container').node().clientWidth;
+        const scaleHeight = 20;
+        const scale = d3.scaleLinear()
             .domain([0, overallValues])
-            .range([0, legendWidth]); // Fix the width
-        const legendValues = legendScale.ticks(10);
+            .range([0, scaleWidth]); // Fix the width
+        const scaleValues = scale.ticks(10);
 
-        legendText.selectAll('rect').remove();
-        legend.selectAll('rect')
-            .data(legendValues)
+        scaleText.selectAll('rect').remove();
+        mapScale.selectAll('rect')
+            .data(scaleValues)
             .enter().append('rect')
-            .attr('x', d => legendScale(d))
+            .attr('x', d => scale(d))
             .attr('y', 0)
-            .attr('width', legendWidth / legendValues.length)
-            .attr('height', legendHeight)
+            .attr('width', scaleWidth / scaleValues.length)
+            .attr('height', scaleHeight)
             .style('fill', d => colorScale(d));
 
-        legendText.selectAll('div').remove();
-        legendText.selectAll('div')
-            .data(legendValues)
+        scaleText.selectAll('div').remove();
+        scaleText.selectAll('div')
+            .data(scaleValues)
             .enter().append('div')
-            // .attr('x', d => legendScale(d))
-            // .attr('y', legendHeight * 2)
+            // .attr('x', d => scale(d))
+            // .attr('y', scaleHeight * 2)
             .attr('x', 10)
             .attr('y', 5)
             .text(d => d)
-            .attr('class', 'legend-text');
+            .attr('class', 'scale-text');
     }
 
 
