@@ -18,7 +18,7 @@ async function loadData() {
 // ******* STATE MANAGEMENT *******
 const globalApplicationState = {
     selectedLocations: [],
-    selectedFactor: null,
+    selectedFactor: 'co2',
     Data: null,
     mapData: null,
     worldMap: null,

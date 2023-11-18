@@ -102,9 +102,9 @@ p {
 
 .modal-content {
     background-color: #fefefe;
-    margin: 15% auto;
+    margin: 5% auto;
     padding: 20px;
-    border: 1px solid #888;
+    border: 1px solid black;
     width: 700px;
 }
 
@@ -178,4 +178,25 @@ p {
     transform: rotate(-45deg);
     font-size: 50%;
     margin-bottom: 20px;
+}
+
+.axis-label {
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    fill: black;
+}
+
+#y-axis-label {
+    transform: rotate(-90deg);
+    text-anchor: middle;
+}
+
+#line-chart {
+    /* background-color: red; */
+    padding: 20px;
+}
+
+#factor {
+    text-align: center;
 }
