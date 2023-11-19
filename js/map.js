@@ -118,18 +118,20 @@ class MapVis {
                 }
             });
 
-        this.drawMapScale(overallValues, colorScale);
+        this.drawMapLegend(overallValues, colorScale);
 
         this.drawSlider();
     }
 
 
+    
     /**
-     * Draws the map scale based on the provided overall values and color scale.
-     * @param {number} overallValues - The overall values used to determine the scale.
-     * @param {function} colorScale - The color scale used to assign colors to the scale.
+     * Draws the legend for the map based on the overall values and color scale.
+     * 
+     * @param {number} overallValues - The overall values used to determine the domain of the scale.
+     * @param {function} colorScale - The color scale used to determine the fill color of the legend rectangles.
      */
-    drawMapScale(overallValues, colorScale) {
+    drawMapLegend(overallValues, colorScale) {
 
         console.log(overallValues);
 
