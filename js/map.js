@@ -134,10 +134,10 @@ class MapVis {
         console.log(overallValues);
 
         // The scale is not redrawing correctly when switching between factors
-        const mapScale = d3.select('#map-scale').append('g')
+        const mapScale = d3.select('#map-legend').append('g')
             .attr('transform', 'translate(0,0)');
-        const scaleText = d3.select('#scale-text-container');
-        const scaleWidth = d3.select('#scale-container').node().clientWidth;
+        const scaleText = d3.select('#map-legend-labels');
+        const scaleWidth = d3.select('#map-legend-container').node().clientWidth;
         const scaleHeight = 20;
         const scale = d3.scaleLinear()
             .domain([0, overallValues])
@@ -163,7 +163,7 @@ class MapVis {
             .attr('x', 10)
             .attr('y', 5)
             .text(d => d)
-            .attr('class', 'scale-text');
+            .attr('class', 'legend-text');
     }
 
 

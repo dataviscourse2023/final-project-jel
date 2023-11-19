@@ -160,7 +160,7 @@ p {
     justify-content: space-between;
 }
 
-#scale-container {
+#map-legend-container {
     height: 60px;
     width: 200px;
     display: flex;
@@ -169,12 +169,12 @@ p {
     margin-left: 30px;
 }
 
-#scale-text-container {
+#map-legend-labels {
     display: flex;
     justify-content: space-between;
 }
 
-.scale-text {
+.legend-text {
     transform: rotate(-45deg);
     font-size: 50%;
     margin-bottom: 20px;
