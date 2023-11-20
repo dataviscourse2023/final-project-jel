@@ -52,17 +52,15 @@ class LineChartVis {
 
         const factor = d3.select('#factor');
         const selectedFactor = this.globalApplicationState.selectedFactor;
+        const title = this.globalApplicationState.titles[selectedFactor] + ' in ' + data[0].country_name;
+        factor.text(title);
         if (selectedFactor === 'co2') {
-            factor.text('Annual CO2 Emissions');
-            yAxisLabel.text('CO2e')
+            yAxisLabel.text('CO2 Emissions (kt)')
         } else if (selectedFactor === 'methane') {
-            factor.text('Methane Emissions');
-            yAxisLabel.text('Mte')
+            yAxisLabel.text('Methane Emissions (CO2 equivalents)')
         } else if (selectedFactor === 'deforestation') {
-            factor.text('Net Forest Area');
             yAxisLabel.text('Mha')
         } else if (selectedFactor === 'temperature') {
-            factor.text('Average Temperature Anomaly');
             yAxisLabel.text('°C')
         }
 

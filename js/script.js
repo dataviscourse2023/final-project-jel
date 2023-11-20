@@ -31,7 +31,13 @@ const globalApplicationState = {
     data: null,
     mapData: null,
     worldMap: null,
-    lineChart: null
+    lineChart: null,
+    titles: {
+        co2: 'Annual CO2 Emissions (kt)',
+        methane: 'Annual Methane Emissions (MTCO2e)',
+        deforestation: 'Net Forest Conversion (Mha)',
+        temperature: 'Surface Temperature Anomaly (°C)'
+    }
 };
 
 //******* APPLICATION MOUNTING *******
@@ -58,6 +64,7 @@ loadData().then((loadedData) => {
 
     d3.select('#methane-button')
         .on('click', () => {
+
             globalApplicationState.data = d3.filter(loadedData.dataArrays[1], d => d.year >= START_DATE && d.year <= END_DATE && d.sector === 'Total excluding LUCF');
             globalApplicationState.selectedFactor = 'methane';
             worldMap.updateMap();
@@ -72,6 +79,7 @@ loadData().then((loadedData) => {
 
     d3.select('#temperature-button')
         .on('click', () => {
+            // loadedData.dataArrays[3].forEach(d => d.value = parseFloat(d.value) + 14);
             globalApplicationState.data = d3.filter(loadedData.dataArrays[3], d => d.year >= START_DATE && d.year <= END_DATE);
             globalApplicationState.selectedFactor = 'temperature';
             worldMap.updateMap();

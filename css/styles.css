@@ -93,7 +93,7 @@ p {
 /* Map Styles */
 #map {
     width: 100%;
-    height: 450px;
+    height: 400px;
     margin-top: 20px;
 }
 
@@ -108,6 +108,10 @@ p {
     stroke: #ccc;
     stroke-width: 0.5;
 }
+
+/* #countries>.country:not(.filled) {
+    fill: #ccc;
+} */
 
 #countries>.country.selected {
     stroke-width: 2px;
@@ -128,18 +132,22 @@ p {
 }
 
 /* Map Legend Styles */
-#map-legend {
-    height: 60px;
-    width: 200px;
+#map-legend-container {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    margin-left: 30px;
+    width: 300px;
+    margin: 20px;
+}
+
+#map-legend-title {
+    align-self: center;
+}
+
+#map-legend {
+    height: 40px;
 }
 
 .legend-text {
-    /* transform: rotate(-45deg);
-    text-orientation: upright; */
     font-size: 50%;
     margin-bottom: 20px;
 }

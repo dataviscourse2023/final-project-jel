@@ -24,6 +24,9 @@ class MapVis {
             const ticks = this.colorScale.ticks(10);
             const colorScale = this.colorScale;
             const selectedFactor = this.globalApplicationState.selectedFactor;
+            const title = this.globalApplicationState.titles;
+            const legendContainerWidth = d3.select('#map-legend-container').node().clientWidth;
+            const elementWidth = legendContainerWidth / ticks.length;
             function legend(svgSelection) {
                 svgSelection.selectAll('rect')
                     .remove();
@@ -31,10 +34,10 @@ class MapVis {
                     .data(ticks)
                     .enter()
                     .append('rect')
-                    .attr('height', 20)
-                    .attr('width', 20)
-                    .attr('x', (_d, i) => i * 20)
-                    .attr('y', 20)
+                    .attr('height', 10)
+                    .attr('width', elementWidth)
+                    .attr('x', (_d, i) => i * elementWidth)
+                    .attr('y', 10)
                     .attr('fill', (d, _i) => colorScale(d));
 
                 svgSelection.selectAll('text')
@@ -43,8 +46,8 @@ class MapVis {
                     .data(ticks)
                     .enter()
                     .append('text')
-                    .attr('x', (_d, i) => i * 20)
-                    .attr('y', 50)
+                    .attr('x', (_d, i) => i * elementWidth)
+                    .attr('y', 35)
                     .text((d, _i) => {
                         if (selectedFactor === 'temperature') {
                             return d3.format('.1f')(d);
@@ -54,10 +57,8 @@ class MapVis {
                     })
                     .attr('class', 'legend-text');
 
-                svgSelection.append('text')
-                    .attr('x', 100-60)
-                    .attr('y', 15)
-                    .text('Factor goes here');
+                d3.select('#map-legend-title')
+                    .text(() => title[selectedFactor]);
 
                 return this;
             };
@@ -75,10 +76,9 @@ class MapVis {
      */
     drawMap(path) {
         const geoJSON = topojson.feature(this.globalApplicationState.mapData, this.globalApplicationState.mapData.objects.countries);
-        this.minValue = d3.min(this.globalApplicationState.data, d => +d.value);
-        this.maxValue = d3.max(this.globalApplicationState.data, d => +d.value);
-        this.colorScale = d3.scaleSequential(d3.interpolateWarm)
-            .domain([this.minValue, this.maxValue]);
+        // this.getMinMaxValues();
+        // this.colorScale = d3.scaleSequential(d3.interpolateWarm)
+        //     .domain([this.minValue, this.maxValue]);
         this.countries = d3.select('#countries');
 
         this.countries.selectAll('path')
@@ -93,6 +93,7 @@ class MapVis {
         this.drawGraticules(path);
         this.updateMap();
     }
+
 
     // Adapted from https://d3-graph-gallery.com/graph/choropleth_hover_effect.html
     /**
@@ -113,6 +114,7 @@ class MapVis {
             .style('opacity', 1);
     }
 
+
     // Adapted from https://d3-graph-gallery.com/graph/choropleth_hover_effect.html
     /**
      * Handles the mouse leave event for the map.
@@ -126,14 +128,19 @@ class MapVis {
             .style('opacity', 1);
     }
 
+
     /**
      * Updates the map based on the selected year.
      * @param {string} sliderYear - The year selected on the slider. If not provided, defaults to '1990'.
      */
     updateMap(sliderYear) {
-        this.minValue = d3.min(this.globalApplicationState.data, d => +d.value);
-        this.maxValue = d3.max(this.globalApplicationState.data, d => +d.value);
-        this.colorScale.domain([this.minValue, this.maxValue]);
+        this.getMinMaxValues();
+        if (!this.colorScale) {
+            this.colorScale = d3.scaleSequential(d3.interpolateWarm)
+                .domain([this.minValue, this.maxValue]);
+        } else {
+            this.colorScale.domain([this.minValue, this.maxValue]);
+        }
         const year = sliderYear || '1990';
         const maxValues = d3.rollup(
             this.globalApplicationState.data.filter(d => d.year === year),
@@ -143,9 +150,9 @@ class MapVis {
 
         this.countries.selectAll('.country')
             .style('fill', d => {
-                const countrymaxValues = maxValues.get(d.id);
-                if (countrymaxValues !== undefined) {
-                    return this.colorScale(countrymaxValues);
+                const countryMaxValue = maxValues.get(d.id);
+                if (countryMaxValue !== undefined) {
+                    return this.colorScale(countryMaxValue);
                 } else {
                     return '#ccc';
                 }
@@ -154,6 +161,14 @@ class MapVis {
         this.drawSlider();
     }
 
+
+    /**
+     * Calculates the minimum and maximum values for the selected factor.
+     */
+    getMinMaxValues() {
+        this.minValue = d3.min(this.globalApplicationState.data, d => +d.value);
+        this.maxValue = d3.max(this.globalApplicationState.data, d => +d.value);
+    }
 
     /**
      * Draws the slider and sets up event listeners for user interaction.
