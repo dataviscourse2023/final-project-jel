@@ -27,6 +27,10 @@ details {
     overflow: hidden;
 }
 
+details[open] summary {
+    background-color: #e9833a;
+}
+
 summary {
     background-color: #f7a046;
     color: white;
@@ -36,19 +40,10 @@ summary {
     outline: none;
 }
 
-details[open] summary {
-    background-color: #e9833a;
-}
-
 p {
     padding: 10px 20px;
     background-color: #f2f2f2;
     margin: 0;
-}
-
-#map {
-    width: 100%;
-    height: 450px;
 }
 
 #value {
@@ -56,7 +51,64 @@ p {
     height: 500px;
 }
 
-/* Vis specific classes */
+#map-interaction-container {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Factor Button Styles */
+.factor-button {
+    justify-content: space-between;
+    width: 100px;
+    background-color: aqua;
+    margin: 10px;
+}
+
+/* Slider Styles */
+#year-slider-container {
+    width: 75%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#year-slider {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.slider-text {
+    font-size: xx-small;
+}
+
+#year-slider-value {
+    width: 100%;
+    margin-top: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Map Styles */
+#map {
+    width: 100%;
+    height: 450px;
+    margin-top: 20px;
+}
+
+#graticules {
+    fill: none;
+    stroke: #000;
+    stroke-width: 1;
+}
+
+.graticule-line {
+    fill: none;
+    stroke: #ccc;
+    stroke-width: 0.5;
+}
+
 #countries>.country.selected {
     stroke-width: 2px;
     stroke: black;
@@ -75,16 +127,21 @@ p {
     stroke-opacity: 1;
 }
 
-#graticules {
-    fill: none;
-    stroke: #000;
-    stroke-width: 1;
+/* Map Legend Styles */
+#map-legend {
+    height: 60px;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 30px;
 }
 
-.graticule-line {
-    fill: none;
-    stroke: #ccc;
-    stroke-width: 0.5;
+.legend-text {
+    /* transform: rotate(-45deg);
+    text-orientation: upright; */
+    font-size: 50%;
+    margin-bottom: 20px;
 }
 
 /* Modal Styles */
@@ -122,62 +179,11 @@ p {
     cursor: pointer;
 }
 
-#map-interaction-container {
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.category-button {
-    justify-content: space-between;
-    width: 100px;
-    background-color: aqua; /* Temp background color. Change this. */
-    margin: 10px;
-}
-
-#year-slider {
-    width: 100%;
-    margin-top: 20px;
-}
-
-.slider-text {
-    /* transform: rotate(-45deg); */
-    font-size: xx-small;
-}
-
-#year-slider-container {
-    width: 75%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-#year-slider-value {
-    width: 100%;
-    margin-top: 5px;
-    display: flex;
-    justify-content: space-between;
-}
-
-#map-legend-container {
-    height: 60px;
-    width: 200px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin-left: 30px;
-}
-
-#map-legend-labels {
-    display: flex;
-    justify-content: space-between;
-}
-
-.legend-text {
-    transform: rotate(-45deg);
-    font-size: 50%;
-    margin-bottom: 20px;
+/* Line Chart Styles */
+#lines {
+    fill: none;
+    stroke: black;
+    stroke-width: 1.5px;   
 }
 
 .axis-label {

@@ -7,13 +7,13 @@
     <link rel="stylesheet" href="css/styles.css">
 
     <!-- Trigger button -->
-    <button id="openModalBtn" hidden="true">Open Modal</button>
+    <button id="open-modal-button" hidden="true">Open Modal</button>
 
     <!-- Modal -->
-    <div id="countryModal" class="modal">
+    <div id="country-modal" class="modal">
         <div class="modal-content">
-            <span id="closeModalBtn" class="close">&times;</span>
-            <h2 id="country_name"></h2>
+            <span id="close-modal-button" class="close">&times;</span>
+            <h2 id="country-name"></h2>
             <h2 id="factor"></h2>
             <svg id="line-chart">
                 <g id="x-axis"></g>
@@ -25,6 +25,7 @@
         </div>
     </div>
 
+    <!-- D3.js library and its dependencies -->
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="https://d3js.org/d3-geo-projection.v4.js"></script>
     <script src="https://d3js.org/topojson.v3.js"></script>
@@ -62,10 +63,10 @@
                 dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation...</p>
             <div id="map-interaction-container">
                 <div>
-                    <button class="category-button" id="co2-button">Co2</button>
-                    <button class="category-button" id="methane-button">Methane</button>
-                    <button class="category-button" id="deforestation-button">Deforestation</button>
-                    <button class="category-button" id="temperature-button">Temperature</button>
+                    <button class="factor-button" id="co2-button">Co2</button>
+                    <button class="factor-button" id="methane-button">Methane</button>
+                    <button class="factor-button" id="deforestation-button">Deforestation</button>
+                    <button class="factor-button" id="temperature-button">Temperature</button>
                 </div>
                 <div id="year-slider-container">
                     <input type="range" id="year-slider" min="1990" max="2015" value="1990" step="1">
@@ -77,10 +78,7 @@
                     <g id="graticules"></g>
                     <g id="countries"></g>
                 </svg>
-                <div id="map-legend-container">
-                    <svg id="map-legend"></svg>
-                    <div id="map-legend-labels"></div>
-                </div>
+                <svg id="map-legend"></svg>
             </div>
         </details>
 

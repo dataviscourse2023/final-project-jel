@@ -1,3 +1,12 @@
+/**
+ * @file script.js
+ * @description This file contains the JavaScript code for the final project.
+ * It includes data loading, state management, application mounting, and event handling.
+ * The code uses D3.js library for data visualization and manipulation.
+ * The main functionality of the code is to display various environmental data on a world map and line chart.
+ * The user can select different factors such as CO2 emissions, methane emissions, deforestation, and temperature.
+ * The code also includes modal functionality for displaying additional information.
+ */
 // world.json source: Visualization for Data Science Homework 4
 // Adapted from Visualization for Data Science Homework 4
 
@@ -19,7 +28,7 @@ async function loadData() {
 const globalApplicationState = {
     selectedLocations: [],
     selectedFactor: 'co2',
-    Data: null,
+    data: null,
     mapData: null,
     worldMap: null,
     lineChart: null
@@ -30,7 +39,7 @@ loadData().then((loadedData) => {
     // console.log('Here is the imported data:', loadedData.dataArrays[0]);
 
     // Store the loaded data into the globalApplicationState
-    globalApplicationState.Data = d3.filter(loadedData.dataArrays[0], d => d.year >= START_DATE && d.year <= END_DATE);
+    globalApplicationState.data = d3.filter(loadedData.dataArrays[0], d => d.year >= START_DATE && d.year <= END_DATE);
     globalApplicationState.mapData = loadedData.mapData;
 
     // Creates the view objects with the global state passed in 
@@ -42,52 +51,41 @@ loadData().then((loadedData) => {
 
     d3.select('#co2-button')
         .on('click', () => {
-            globalApplicationState.Data = null;
-            globalApplicationState.Data = d3.filter(loadedData.dataArrays[0], d => d.year >= START_DATE && d.year <= END_DATE);
+            globalApplicationState.data = d3.filter(loadedData.dataArrays[0], d => d.year >= START_DATE && d.year <= END_DATE);
             globalApplicationState.selectedFactor = 'co2';
-            worldMap.drawMap();
+            worldMap.updateMap();
         });
 
-        d3.select('#methane-button')
+    d3.select('#methane-button')
         .on('click', () => {
-            globalApplicationState.Data = null;
-            globalApplicationState.Data = d3.filter(loadedData.dataArrays[1], d => d.year >= START_DATE && d.year <= END_DATE && d.sector === 'Total excluding LUCF');
+            globalApplicationState.data = d3.filter(loadedData.dataArrays[1], d => d.year >= START_DATE && d.year <= END_DATE && d.sector === 'Total excluding LUCF');
             globalApplicationState.selectedFactor = 'methane';
-            worldMap.drawMap();
+            worldMap.updateMap();
         });
 
-        d3.select('#deforestation-button')
+    d3.select('#deforestation-button')
         .on('click', () => {
-            globalApplicationState.Data = null;
-            globalApplicationState.Data = d3.filter(loadedData.dataArrays[2], d => d.year >= START_DATE && d.year <= END_DATE);
+            globalApplicationState.data = d3.filter(loadedData.dataArrays[2], d => d.year >= START_DATE && d.year <= END_DATE);
             globalApplicationState.selectedFactor = 'deforestation';
-            worldMap.drawMap();
-            worldMap.drawSlider();
+            worldMap.updateMap();
         });
 
-        d3.select('#temperature-button')
+    d3.select('#temperature-button')
         .on('click', () => {
-            globalApplicationState.Data = null;
-            globalApplicationState.Data = d3.filter(loadedData.dataArrays[3], d => d.year >= START_DATE && d.year <= END_DATE);
+            globalApplicationState.data = d3.filter(loadedData.dataArrays[3], d => d.year >= START_DATE && d.year <= END_DATE);
             globalApplicationState.selectedFactor = 'temperature';
-            worldMap.drawMap();
-        });
-
-        d3.select('#year-slider')
-        .on('input', () => {
-            const year = d3.select('#year-slider').property('value');
-            worldMap.slider(year);
+            worldMap.updateMap();
         });
 });
 
 // Get modal element
-const modal = document.getElementById('countryModal');
+const modal = document.getElementById('country-modal');
 
 // Get the button that opens the modal
-const openModalBtn = document.getElementById('openModalBtn');
+const openModalBtn = document.getElementById('open-modal-button');
 
 // Get the element that closes the modal
-const closeModalBtn = document.getElementById('closeModalBtn');
+const closeModalBtn = document.getElementById('close-modal-button');
 
 // Open the modal
 openModalBtn.addEventListener('click', () => {
