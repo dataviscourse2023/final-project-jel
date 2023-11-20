@@ -25,7 +25,8 @@ class MapVis {
             const colorScale = this.colorScale;
             const selectedFactor = this.globalApplicationState.selectedFactor;
             function legend(svgSelection) {
-                svgSelection.selectAll('rect').remove();
+                svgSelection.selectAll('rect')
+                    .remove();
                 svgSelection.selectAll('rect')
                     .data(ticks)
                     .enter()
@@ -33,15 +34,17 @@ class MapVis {
                     .attr('height', 20)
                     .attr('width', 20)
                     .attr('x', (_d, i) => i * 20)
+                    .attr('y', 20)
                     .attr('fill', (d, _i) => colorScale(d));
 
-                svgSelection.selectAll('text').remove();
+                svgSelection.selectAll('text')
+                    .remove();
                 svgSelection.selectAll('text')
                     .data(ticks)
                     .enter()
                     .append('text')
                     .attr('x', (_d, i) => i * 20)
-                    .attr('y', 30)
+                    .attr('y', 50)
                     .text((d, _i) => {
                         if (selectedFactor === 'temperature') {
                             return d3.format('.1f')(d);
@@ -50,6 +53,12 @@ class MapVis {
                         }
                     })
                     .attr('class', 'legend-text');
+
+                svgSelection.append('text')
+                    .attr('x', 100-60)
+                    .attr('y', 15)
+                    .text('Factor goes here');
+
                 return this;
             };
 
@@ -185,7 +194,7 @@ class MapVis {
             .attr('class', 'slider-text');
     }
 
-    
+
     /**
      * Draws graticules on the map using the provided path.
      * @param {function} path - The path generator function.
@@ -207,7 +216,7 @@ class MapVis {
             .attr('d', path)
     }
 
-    
+
     /**
      * Displays a modal with information about the selected location.
      * @param {Event} event - The event object triggered by the user action.
