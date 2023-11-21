@@ -46,6 +46,7 @@
  # To Do:
  - Map:
     - (Done) Fix slider so it lands on the correct year for 'Deforestation'.
+    - The map is not drawing correctly when the section is collapsed. This may be because the map is being drawn before the section is expanded. This may be fixed when the section is expanded by default, or drawn when the section is expanded.
     - Document code.
     - Experiment with different color scales.
     - Experiment with different projections.
