@@ -44,9 +44,6 @@
  - A color scale will be added to the map for the final project.
 
  # To Do:
-  - Main Page:
-    - Add link to Process Book and data.
-    - The page now starts with open categories. Should we change this?
  - Map:
     - (Done) Fix slider so it lands on the correct year for 'Deforestation'.
     - Document code.

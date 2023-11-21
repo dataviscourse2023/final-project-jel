@@ -28,11 +28,11 @@ details {
 }
 
 details[open] summary {
-    background-color: #e9833a;
+    background-color: #f5a66d;
 }
 
 summary {
-    background-color: #f7a046;
+    background-color: #f5a66d;
     color: white;
     font-size: 1.5em;
     padding: 10px;
