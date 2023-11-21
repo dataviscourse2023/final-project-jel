@@ -68,7 +68,7 @@ p {
 
 /* Slider Styles */
 #year-slider-container {
-    width: 75%;
+    width: 500px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -84,10 +84,8 @@ p {
 }
 
 #year-slider-value {
+    height: 10px;
     width: 100%;
-    margin-top: 5px;
-    display: flex;
-    justify-content: space-between;
 }
 
 /* Map Styles */

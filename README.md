@@ -48,7 +48,7 @@
     - Add link to Process Book and data.
     - The page now starts with open categories. Should we change this?
  - Map:
-    - Fix slider so it lands on the correct year for 'Deforestation'.
+    - (Done) Fix slider so it lands on the correct year for 'Deforestation'.
     - Document code.
     - Experiment with different color scales.
     - Experiment with different projections.

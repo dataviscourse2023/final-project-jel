@@ -137,12 +137,25 @@ class MapVis {
         } else {
             this.colorScale.domain([this.minValue, this.maxValue]);
         }
-        const year = sliderYear || '1990';
-        const maxValues = d3.rollup(
-            this.globalApplicationState.data.filter(d => d.year === year),
-            v => d3.max(v, d => +d.value),
-            d => d.country_code
-        );
+
+        // TODO: Refactor this to be more DRY
+        const year = sliderYear || d3.select('#year-slider').property('value');
+        const years = [1990, 2000, 2010, 2015];
+        let maxValues;
+        if (this.globalApplicationState.selectedFactor === 'deforestation') {
+            const closest = years.reduce((prev, curr) => (Math.abs(curr - year) < Math.abs(prev - year) ? curr : prev));
+            maxValues = d3.rollup(
+                this.globalApplicationState.data.filter(d => +d.year === closest),
+                v => d3.max(v, d => +d.value),
+                d => d.country_code
+            );
+        } else {
+            maxValues = d3.rollup(
+                this.globalApplicationState.data.filter(d => d.year === year),
+                v => d3.max(v, d => +d.value),
+                d => d.country_code
+            );
+        }
 
         this.countries.selectAll('.country')
             .style('fill', d => {
@@ -172,9 +185,11 @@ class MapVis {
     drawSlider() {
         const sliderValue = d3.select('#year-slider-value');
         const yearSlider = d3.select('#year-slider');
+        const sliderWidth = yearSlider.node().clientWidth;
+        const selectedFactor = this.globalApplicationState.selectedFactor;
         let years;
 
-        if (this.globalApplicationState.selectedFactor === 'deforestation') {
+        if (selectedFactor === 'deforestation') {
             years = [1990, 2000, 2010, 2015];
             yearSlider.attr('min', Math.min(...years))
                 .attr('max', Math.max(...years))
@@ -195,12 +210,23 @@ class MapVis {
             years.sort((a, b) => a - b);
         }
 
-        sliderValue.selectAll('div').remove();
-        sliderValue.selectAll('div')
+        sliderValue.selectAll('text').remove();
+        sliderValue.selectAll('text')
             .data(years)
-            .enter().append('div')
-            .attr('x', 10)
-            .attr('y', 5)
+            .enter().append('text')
+            .attr('x', (d, i) => {
+
+                if (selectedFactor === 'deforestation') {
+                    if (d < 2015) {
+                        return i * (sliderWidth - 21.03) / 2.5;
+                    } else {
+                        return i * (sliderWidth - 21.03) / 3;
+                    }
+                } else {
+                    return i * (sliderWidth - 21.03) / 5;
+                }
+            })
+            .attr('y', 10)
             .text(d => d)
             .attr('class', 'slider-text');
     }
