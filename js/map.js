@@ -76,11 +76,7 @@ class MapVis {
      */
     drawMap(path) {
         const geoJSON = topojson.feature(this.globalApplicationState.mapData, this.globalApplicationState.mapData.objects.countries);
-        // this.getMinMaxValues();
-        // this.colorScale = d3.scaleSequential(d3.interpolateWarm)
-        //     .domain([this.minValue, this.maxValue]);
         this.countries = d3.select('#countries');
-
         this.countries.selectAll('path')
             .data(geoJSON.features)
             .enter().append('path')
