@@ -42,3 +42,25 @@
    - Year marks will be added for the final project.
  - Map colors only display for certain dates for deforestation. This is because the data for deforestation is only available for certain years. For the final project, the slider will only display years for which data is available.
  - A color scale will be added to the map for the final project.
+
+ # To Do:
+  - Main Page:
+    - Add link to Process Book and data.
+    - The page now starts with open categories. Should we change this?
+ - Map:
+    - Fix slider so it lands on the correct year for 'Deforestation'.
+    - Document code.
+    - Experiment with different color scales.
+    - Experiment with different projections.
+    - (Optional) Add tooltip to legend to show more information about the color scale.
+    - (Optional) Add tooltip to countries to show more information about the country.
+ - Line Chart:
+    - Factor and document code.
+    - Fix x-axis so it displays the correct years.
+    - Fix y-axis so it the label so it is the correct distance from the axis when the user switches between factors.
+    - Fix the main label to display correctly.
+    - Add embellishments to the chart.
+    - Add legend to the chart.
+    - (Optional) Add tooltip to show more information about the data point. Can adapt code from HW 4.
+  - Bar Chart:
+    - What are we doing with this?
