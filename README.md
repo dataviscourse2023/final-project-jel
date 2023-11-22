@@ -59,5 +59,3 @@
     - Add embellishments to the chart.
     - Add legend to the chart.
     - (Optional) Add tooltip to show more information about the data point. Can adapt code from HW 4.
-  - Bar Chart:
-    - What are we doing with this?
