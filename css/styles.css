@@ -62,8 +62,9 @@ p {
 .factor-button {
     justify-content: space-between;
     width: 100px;
-    background-color: aqua;
     margin: 10px;
+    background-color: #f5a66d;
+    color: white;
 }
 
 /* Slider Styles */
@@ -139,6 +140,8 @@ p {
 
 #map-legend-title {
     align-self: center;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    /* font-size: 110%; */
 }
 
 #map-legend {
@@ -171,6 +174,11 @@ p {
     width: 700px;
 }
 
+#modal-title {
+    text-align: center;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+}
+
 .close {
     color: #aaa;
     float: right;
@@ -197,6 +205,7 @@ p {
     font-weight: bold;
     margin-bottom: 5px;
     fill: black;
+    font-family:Georgia, 'Times New Roman', Times, serif;
 }
 
 #y-axis-label {
@@ -206,9 +215,5 @@ p {
 
 #line-chart {
     /* background-color: red; */
-    padding: 20px;
-}
-
-#modal-title {
-    text-align: center;
+    padding: 0px 20px 20px 20px;
 }

@@ -36,14 +36,14 @@ const globalApplicationState = {
 
 const globalConstants = {
     titles: {
-        co2: 'CO2 Emissions',
+        co2: 'CO₂ Emissions',
         methane: 'Methane Emissions',
         deforestation: 'Net Forest Conversion',
         temperature: 'Surface Temperature Anomaly'
     },
     labels: {
-        co2: 'CO2 Emissions (kt)',
-        methane: 'Methane Emissions (CO2 equivalents)',
+        co2: 'CO₂ Emissions (kt)',
+        methane: 'Methane Emissions (CO₂ equivalents)',
         deforestation: 'Net Forest Conversion (Mha)',
         temperature: 'Surface Temperature Anomaly (°C)'
     }
