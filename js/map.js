@@ -9,7 +9,12 @@ class MapVis {
     constructor(globalApplicationState, globalConstants) {
         this.globalApplicationState = globalApplicationState;
         this.globalConstants = globalConstants;
+        this.countries = d3.select('#countries');
+        this.yearSlider = d3.select('#year-slider');
+        this.sliderLabels = d3.select('#year-slider-labels');
+        this.sliderWidth = this.yearSlider.node().clientWidth;
         const contentWidth = d3.select('#content').node().clientWidth;
+        const legendContainerWidth = d3.select('#map-legend-container').node().clientWidth;
 
         // Set up the map projection
         const projection = d3.geoWinkel3()
@@ -26,27 +31,25 @@ class MapVis {
             const colorScale = this.colorScale;
             const selectedFactor = this.globalApplicationState.selectedFactor;
             const labels = this.globalConstants.labels;
-            const legendContainerWidth = d3.select('#map-legend-container').node().clientWidth;
             const elementWidth = legendContainerWidth / ticks.length;
             function legend(svgSelection) {
-                svgSelection.selectAll('rect')
-                    .remove();
-                svgSelection.selectAll('rect')
-                    .data(ticks)
-                    .enter()
-                    .append('rect')
+
+                const rects = svgSelection.selectAll('rect')
+                    .data(ticks);
+                rects.exit().remove();
+                rects.enter().append('rect')
+                    .merge(rects)
                     .attr('height', 10)
                     .attr('width', elementWidth)
                     .attr('x', (_d, i) => i * elementWidth)
                     .attr('y', 10)
                     .attr('fill', (d, _i) => colorScale(d));
 
-                svgSelection.selectAll('text')
-                    .remove();
-                svgSelection.selectAll('text')
-                    .data(ticks)
-                    .enter()
-                    .append('text')
+                const texts = svgSelection.selectAll('text')
+                    .data(ticks);
+                texts.exit().remove();
+                texts.enter().append('text')
+                    .merge(texts)
                     .attr('x', (_d, i) => i * elementWidth)
                     .attr('y', 35)
                     .text((d, _i) => {
@@ -77,16 +80,19 @@ class MapVis {
      */
     drawMap(path) {
         const geoJSON = topojson.feature(this.globalApplicationState.mapData, this.globalApplicationState.mapData.objects.countries);
-        this.countries = d3.select('#countries');
-        this.countries.selectAll('path')
-            .data(geoJSON.features)
-            .enter().append('path')
+        const countries = this.countries.selectAll('path')
+            .data(geoJSON.features);
+
+        countries.exit().remove();
+        countries.enter().append('path')
+            .merge(countries)
             .attr('d', path)
             .attr('class', 'country')
             .attr('id', d => d.id)
-            .on('mouseover', (event, d) => this.mouseOver(event, d))
-            .on('mouseleave', (event, d) => this.mouseLeave(event, d))
+            // .on('mouseover', (event, d) => this.mouseOver(event, d))
+            // .on('mouseleave', (event, d) => this.mouseLeave(event, d))
             .on('click', (event, _d) => this.displayModal(event));
+
         this.drawGraticules(path);
         this.updateMap();
     }
@@ -98,18 +104,26 @@ class MapVis {
      * @param {Event} event - The mouseover event.
      * @param {_d} _d - The data associated with the event.
      */
-    mouseOver(event, _d) {
-        d3.selectAll('.country')
-            .transition()
-            .duration(0)
-            .style('opacity', 0.75);
+    // mouseOver(event, _d) {
+    //     d3.selectAll('.country')
+    //         .transition()
+    //         .duration(0)
+    //         .style('opacity', 0.75);
 
-        // Highlight country under mouse
-        d3.select(event.currentTarget)
-            .transition()
-            .duration(0)
-            .style('opacity', 1);
-    }
+    //     // Highlight country under mouse
+    //     d3.select(event.currentTarget)
+    //         .transition()
+    //         .duration(0)
+    //         .style('opacity', 1);
+    // }
+
+    // mouseOver(event, _d) {
+    //     d3.select(event.currentTarget)
+    //         // .style('opacity', 0.75)
+    //         // .transition()
+    //         // .duration(0)
+    //         .style('opacity', 1);
+    // }
 
 
     // Adapted from https://d3-graph-gallery.com/graph/choropleth_hover_effect.html
@@ -118,12 +132,12 @@ class MapVis {
      * @param {Event} _event - The mouse leave event.
      * @param {Object} _d - The data associated with the event.
      */
-    mouseLeave(_event, _d) {
-        d3.selectAll('.country')
-            .transition()
-            .duration(0)
-            .style('opacity', 1);
-    }
+    // mouseLeave(_event, _d) {
+    //     d3.selectAll('.country')
+    //         .transition()
+    //         .duration(0)
+    //         .style('opacity', 1);
+    // }
 
 
     /**
@@ -131,7 +145,11 @@ class MapVis {
      * @param {string} sliderYear - The year selected on the slider. If not provided, defaults to '1990'.
      */
     updateMap(sliderYear) {
+        const yearSlider = this.yearSlider;
+        const year = sliderYear || yearSlider.property('value');
+        const countries = this.countries.selectAll('.country');
         this.getMinMaxValues();
+
         if (!this.colorScale) {
             this.colorScale = d3.scaleSequential(d3.interpolateWarm)
                 .domain([this.minValue, this.maxValue]);
@@ -139,36 +157,41 @@ class MapVis {
             this.colorScale.domain([this.minValue, this.maxValue]);
         }
 
-        // TODO: Refactor this to be more DRY
-        const year = sliderYear || d3.select('#year-slider').property('value');
-        const years = [1990, 2000, 2010, 2015];
-        let maxValues;
+        countries.style('fill', d => {
+            const countryMaxValue = this.calculateMaxValues(year).get(d.id);
+            if (countryMaxValue !== undefined) {
+                return this.colorScale(countryMaxValue);
+            } else {
+                return '#ccc';
+            }
+        });
+
+        d3.select('#map-legend').call(d3.mapLegend());
+        this.drawSlider();
+    }
+
+
+    /**
+     * Calculates the maximum values based on the selected year and factor.
+     * @param {number} year - The year for which to calculate the maximum values.
+     * @returns {Map<string, number>} - A map of country codes to maximum values.
+     */
+    calculateMaxValues(year) {
+        const allowedYears = [1990, 2000, 2010, 2015];
         if (this.globalApplicationState.selectedFactor === 'deforestation') {
-            const closest = years.reduce((prev, curr) => (Math.abs(curr - year) < Math.abs(prev - year) ? curr : prev));
-            maxValues = d3.rollup(
+            const closest = allowedYears.reduce((prev, curr) => (Math.abs(curr - year) < Math.abs(prev - year) ? curr : prev));
+            return d3.rollup(
                 this.globalApplicationState.data.filter(d => +d.year === closest),
                 v => d3.max(v, d => +d.value),
                 d => d.country_code
             );
         } else {
-            maxValues = d3.rollup(
+            return d3.rollup(
                 this.globalApplicationState.data.filter(d => d.year === year),
                 v => d3.max(v, d => +d.value),
                 d => d.country_code
             );
         }
-
-        this.countries.selectAll('.country')
-            .style('fill', d => {
-                const countryMaxValue = maxValues.get(d.id);
-                if (countryMaxValue !== undefined) {
-                    return this.colorScale(countryMaxValue);
-                } else {
-                    return '#ccc';
-                }
-            });
-        d3.select('#map-legend').call(d3.mapLegend());
-        this.drawSlider();
     }
 
 
@@ -180,13 +203,14 @@ class MapVis {
         this.maxValue = d3.max(this.globalApplicationState.data, d => +d.value);
     }
 
+
     /**
      * Draws the slider and sets up event listeners for user interaction.
      */
     drawSlider() {
-        const sliderValue = d3.select('#year-slider-value');
-        const yearSlider = d3.select('#year-slider');
-        const sliderWidth = yearSlider.node().clientWidth;
+        const yearSlider = this.yearSlider;
+        const sliderLabels = this.sliderLabels;
+        const sliderWidth = this.sliderWidth;
         const selectedFactor = this.globalApplicationState.selectedFactor;
         let years;
 
@@ -211,12 +235,12 @@ class MapVis {
             years.sort((a, b) => a - b);
         }
 
-        sliderValue.selectAll('text').remove();
-        sliderValue.selectAll('text')
-            .data(years)
-            .enter().append('text')
+        const texts = sliderLabels.selectAll('text')
+            .data(years);
+        texts.exit().remove();
+        texts.enter().append('text')
+            .merge(texts)
             .attr('x', (d, i) => {
-
                 if (selectedFactor === 'deforestation') {
                     if (d < 2015) {
                         return i * (sliderWidth - 21.03) / 2.5;
@@ -238,20 +262,23 @@ class MapVis {
      * @param {function} path - The path generator function.
      */
     drawGraticules(path) {
-        const graticules = d3.select('#map')
-            .select('#graticules');
-        const grat = d3.geoGraticule();
+        const graticules = d3.select('#map').select('#graticules');
+        const graticule = d3.geoGraticule();
 
-        graticules.selectAll('.graticule-line')
-            .data(grat.lines())
-            .enter().append('path')
+        const graticuleLines = graticules.selectAll('.graticule-line')
+            .data(graticule.lines());
+
+        graticuleLines.exit().remove();
+
+        graticuleLines.enter().append('path')
+            .merge(graticuleLines)
             .attr('class', 'graticule-line')
-            .attr('d', path)
+            .attr('d', path);
 
         graticules.append('path')
-            .datum(grat.outline())
+            .datum(graticule.outline())
             .attr('class', 'graticule outline')
-            .attr('d', path)
+            .attr('d', path);
     }
 
 
@@ -262,9 +289,6 @@ class MapVis {
     displayModal(event) {
         this.globalApplicationState.selectedLocations = [event.currentTarget.id];
         this.globalApplicationState.lineChart.drawLineChart();
-
-        // const countryName = this.globalApplicationState.data.filter(d => d.country_code === event.currentTarget.id)[0].country_name;
-        // const value = this.globalApplicationState.data.filter(d => d.country_code === event.currentTarget.id)[0].value;
 
         // TODO: Implement error handling for when countryName is undefined
         // if (countryName != undefined) {
