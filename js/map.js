@@ -262,13 +262,12 @@ class MapVis {
         this.globalApplicationState.selectedLocations = [event.currentTarget.id];
         this.globalApplicationState.lineChart.drawLineChart();
 
-        const countryName = this.globalApplicationState.data.filter(d => d.country_code === event.currentTarget.id)[0].country_name;
-        const value = this.globalApplicationState.data.filter(d => d.country_code === event.currentTarget.id)[0].value;
+        // const countryName = this.globalApplicationState.data.filter(d => d.country_code === event.currentTarget.id)[0].country_name;
+        // const value = this.globalApplicationState.data.filter(d => d.country_code === event.currentTarget.id)[0].value;
 
         // TODO: Implement error handling for when countryName is undefined
         // if (countryName != undefined) {
-        d3.select('#country-name').text(countryName);
-        d3.select('#value').text(value);
+        // d3.select('#value').text(value);
         modal.style.display = 'block';
         // }
     }

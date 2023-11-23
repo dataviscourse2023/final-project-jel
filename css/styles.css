@@ -46,10 +46,10 @@ p {
     margin: 0;
 }
 
-#value {
+/* #value {
     width: 800px;
     height: 500px;
-}
+} */
 
 #map-interaction-container {
     margin-top: 20px;
@@ -209,6 +209,6 @@ p {
     padding: 20px;
 }
 
-#factor {
+#modal-title {
     text-align: center;
 }

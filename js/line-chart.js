@@ -62,19 +62,27 @@ class LineChartVis {
      * @returns {Function} - The y-axis scale function.
      */
     drawYAxis(data) {
+        let format;
+
+        if (this.globalApplicationState.selectedFactor === 'temperature') {
+            format = d3.format('.1f');
+        } else {
+            format = d3.format('.2s');
+        }
+
         const yScale = d3.scaleLinear()
             .domain(d3.extent(data, d => parseFloat(d.value)).sort(d3.ascending))
             .range([this.height - this.margin.bottom - this.margin.top, 0]).nice();
 
         const yAxis = d3.select('#y-axis')
             .attr('transform', `translate(${this.margin.left * 2}, ${this.margin.bottom * 2})`)
-            .call(d3.axisLeft(yScale));
+            .call(d3.axisLeft(yScale).tickFormat(format));
 
         // Add the y-axis label
         const yAxisLabel = yAxis.select('#y-axis-label')
             .attr('x', -this.height / 2 + this.margin.bottom)
             .attr('y', -this.margin.left - this.margin.left / 2);
-        const factor = d3.select('#factor');
+        const factor = d3.select('#modal-title');
         const selectedFactor = this.globalApplicationState.selectedFactor;
         const title = this.globalApplicationState.titles[selectedFactor] + ' in ' + data[0].country_name;
 
