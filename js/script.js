@@ -32,9 +32,18 @@ const globalApplicationState = {
     mapData: null,
     worldMap: null,
     lineChart: null,
+};
+
+const globalConstants = {
     titles: {
-        co2: 'Annual CO2 Emissions (kt)',
-        methane: 'Annual Methane Emissions (MTCO2e)',
+        co2: 'CO2 Emissions',
+        methane: 'Methane Emissions',
+        deforestation: 'Net Forest Conversion',
+        temperature: 'Surface Temperature Anomaly'
+    },
+    labels: {
+        co2: 'CO2 Emissions (kt)',
+        methane: 'Methane Emissions (CO2 equivalents)',
         deforestation: 'Net Forest Conversion (Mha)',
         temperature: 'Surface Temperature Anomaly (°C)'
     }
@@ -49,8 +58,8 @@ loadData().then((loadedData) => {
     globalApplicationState.mapData = loadedData.mapData;
 
     // Creates the view objects with the global state passed in 
-    const worldMap = new MapVis(globalApplicationState);
-    const lineChart = new LineChartVis(globalApplicationState);
+    const worldMap = new MapVis(globalApplicationState, globalConstants);
+    const lineChart = new LineChartVis(globalApplicationState, globalConstants);
 
     globalApplicationState.worldMap = worldMap;
     globalApplicationState.lineChart = lineChart;

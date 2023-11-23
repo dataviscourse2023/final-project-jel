@@ -6,8 +6,9 @@ class MapVis {
      * Creates a Map Visuzation
      * @param globalApplicationState The shared global application state (has the data and the line chart instance in it)
      */
-    constructor(globalApplicationState) {
+    constructor(globalApplicationState, globalConstants) {
         this.globalApplicationState = globalApplicationState;
+        this.globalConstants = globalConstants;
         const contentWidth = d3.select('#content').node().clientWidth;
 
         // Set up the map projection
@@ -24,7 +25,7 @@ class MapVis {
             const ticks = this.colorScale.ticks(10);
             const colorScale = this.colorScale;
             const selectedFactor = this.globalApplicationState.selectedFactor;
-            const title = this.globalApplicationState.titles;
+            const labels = this.globalConstants.labels;
             const legendContainerWidth = d3.select('#map-legend-container').node().clientWidth;
             const elementWidth = legendContainerWidth / ticks.length;
             function legend(svgSelection) {
@@ -58,7 +59,7 @@ class MapVis {
                     .attr('class', 'legend-text');
 
                 d3.select('#map-legend-title')
-                    .text(() => title[selectedFactor]);
+                    .text(() => labels[selectedFactor]);
 
                 return this;
             };

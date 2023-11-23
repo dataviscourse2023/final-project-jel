@@ -6,8 +6,9 @@ class LineChartVis {
      * Creates a Line Chart Visualzation 
      * @param globalApplicationState 
      */
-    constructor(globalApplicationState) {
+    constructor(globalApplicationState, globalConstants) {
         this.globalApplicationState = globalApplicationState;
+        this.globalConstants = globalConstants;
         this.margin = { top: 20, right: 40, bottom: 20, left: 40 };
         this.width = 700 - this.margin.left - this.margin.right;
         this.height = 500 - this.margin.bottom - this.margin.top;
@@ -84,18 +85,10 @@ class LineChartVis {
             .attr('y', -this.margin.left - this.margin.left / 2);
         const factor = d3.select('#modal-title');
         const selectedFactor = this.globalApplicationState.selectedFactor;
-        const title = this.globalApplicationState.titles[selectedFactor] + ' in ' + data[0].country_name;
+        const title = this.globalConstants.titles[selectedFactor] + ' in ' + data[0].country_name;
 
         factor.text(title); // Update the title
-        if (selectedFactor === 'co2') {
-            yAxisLabel.text('CO2 Emissions (kt)');
-        } else if (selectedFactor === 'methane') {
-            yAxisLabel.text('Methane Emissions (CO2 equivalents)');
-        } else if (selectedFactor === 'deforestation') {
-            yAxisLabel.text('Mha');
-        } else if (selectedFactor === 'temperature') {
-            yAxisLabel.text('°C');
-        }
+        yAxisLabel.text(this.globalConstants.labels[selectedFactor])
         return yScale;
     }
 
