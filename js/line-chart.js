@@ -54,8 +54,77 @@ class LineChartVis {
             //     };
             // })
             ;
+
+        // Calculate and draw the trendline
+        const trendlineData = this.calculateTrendline(data, yScale);
+        lines.append('path')
+            .datum(trendlineData)
+            .attr('d', line)
+            .attr('stroke', 'red')
+            .attr('stroke-width', 2)
+            .style('fill', 'none')
+            .style('stroke-dasharray', ('3, 3'));
+
     }
 
+    calculateTrendline(data, yScale) {
+        let xSum = 0, ySum = 0, xySum = 0, xxSum = 0;
+        const n = data.length;
+
+        data.forEach(d => {
+            const x = new Date(d.year).getTime();
+            const y = +d.value;
+            xSum += x;
+            ySum += y;
+            xySum += x * y;
+            xxSum += x * x;
+        });
+
+        const xMean = xSum / n;
+        const yMean = ySum / n;
+
+        // Calculate slope (m) and y-intercept (b) for y = mx + b
+        const slope = (n * xySum - xSum * ySum) / (n * xxSum - xSum * xSum);
+        const intercept = yMean - slope * xMean;
+
+        // Adjust start and end points to be within the y-axis scale range
+        const startY = Math.max(slope * new Date(data[0].year).getTime() + intercept, yScale.domain()[0]);
+        const endY = Math.max(slope * new Date(data[data.length - 1].year).getTime() + intercept, yScale.domain()[0]);
+
+        const trendlineData = [
+            { year: data[0].year, value: startY },
+            { year: data[data.length - 1].year, value: endY }
+        ];
+
+        return trendlineData;
+    }
+
+    
+    /**
+     * Draws the x-axis for the line chart.
+     * 
+     * @param {Array} data - The data used to determine the domain of the x-axis scale.
+     * @returns {Function} - The x-axis scale function.
+     */
+    drawXAxis(data) {
+        const xScale = d3.scaleTime()
+            .domain(d3.extent(data, d => new Date(d.year)))
+            .range([0, this.width - this.margin.left - this.margin.right]);
+
+        const xAxis = d3.select('#x-axis')
+            .attr('transform', `translate(${this.margin.left * 2}, ${this.height})`)
+            .call(d3.axisBottom(xScale));
+
+        // Add the x-axis label
+        xAxis.append('text')
+            .attr('class', 'axis-label')
+            .attr('x', this.width / 2 - this.margin.left)
+            .attr('y', this.margin.bottom * 2)
+            .text('Year');
+        return xScale;
+    }
+
+    
     /**
      * Draws the y-axis for the line chart.
      * 
@@ -90,29 +159,5 @@ class LineChartVis {
         factor.text(title); // Update the title
         yAxisLabel.text(this.globalConstants.labels[selectedFactor])
         return yScale;
-    }
-
-    /**
-     * Draws the x-axis for the line chart.
-     * 
-     * @param {Array} data - The data used to determine the domain of the x-axis scale.
-     * @returns {Function} - The x-axis scale function.
-     */
-    drawXAxis(data) {
-        const xScale = d3.scaleTime()
-            .domain(d3.extent(data, d => new Date(d.year)))
-            .range([0, this.width - this.margin.left - this.margin.right]);
-
-        const xAxis = d3.select('#x-axis')
-            .attr('transform', `translate(${this.margin.left * 2}, ${this.height})`)
-            .call(d3.axisBottom(xScale));
-
-        // Add the x-axis label
-        xAxis.append('text')
-            .attr('class', 'axis-label')
-            .attr('x', this.width / 2 - this.margin.left)
-            .attr('y', this.margin.bottom * 2)
-            .text('Year');
-        return xScale;
     }
 }
