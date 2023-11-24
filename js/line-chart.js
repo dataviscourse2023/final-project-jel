@@ -67,6 +67,14 @@ class LineChartVis {
 
     }
 
+
+    /**
+     * Calculates the trendline data for a line chart.
+     * 
+     * @param {Array} data - The data array containing objects with year and value properties.
+     * @param {Object} yScale - The y-axis scale object.
+     * @returns {Array} - The trendline data array containing objects with year and value properties.
+     */
     calculateTrendline(data, yScale) {
         let xSum = 0, ySum = 0, xySum = 0, xxSum = 0;
         const n = data.length;
@@ -99,7 +107,7 @@ class LineChartVis {
         return trendlineData;
     }
 
-    
+
     /**
      * Draws the x-axis for the line chart.
      * 
@@ -124,7 +132,7 @@ class LineChartVis {
         return xScale;
     }
 
-    
+
     /**
      * Draws the y-axis for the line chart.
      * 

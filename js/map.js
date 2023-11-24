@@ -87,6 +87,9 @@ class MapVis {
                         .attr('transform', `translate(5, 0)`);
                 };
 
+                /**
+                 * Draws an info icon using SVG.
+                 */
                 function drawInfoIcon() {
                     const infoIcon = titleGroupEnter.append('svg')
                         .attr('width', 16)
@@ -95,6 +98,8 @@ class MapVis {
                         .attr('viewBox', '0 0 16 16')
                         .merge(titleGroup.select('svg'))
                         .attr('transform', `translate(5, 0)`);
+
+                    // https://icons.getbootstrap.com/icons/info-circle/
 
                     // Append the first path to the SVG
                     infoIcon.append('path')
