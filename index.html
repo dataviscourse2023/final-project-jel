@@ -1,118 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Team JEL Final Project</title>
+        <link rel="stylesheet" href="css/styles.css">
 
-<head>
-    <meta charset="utf-8">
-    <title>Team JEL Final Project</title>
-    <link rel="stylesheet" href="css/styles.css">
+        <!-- Trigger button -->
+        <button id="open-modal-button" hidden="true">Open Modal</button>
 
-    <!-- Trigger button -->
-    <button id="open-modal-button" hidden="true">Open Modal</button>
-
-    <!-- Modal -->
-    <div id="country-modal" class="modal">
-        <div class="modal-content">
-            <span id="close-modal-button" class="close">&times;</span>
-            <h2 id="modal-title"></h2>
-            <svg id="line-chart">
-                <g id="x-axis"></g>
-                <g id="y-axis">
-                    <text class="axis-label" id="y-axis-label"></text>
-                </g>
-                <g id="lines"></g>
-            </svg>
+        <!-- Modal -->
+        <div id="country-modal" class="modal">
+            <div class="modal-content">
+                <span id="close-modal-button" class="close">&times;</span>
+                <h2 id="modal-title"></h2>
+                <svg id="line-chart">
+                    <g id="x-axis"></g>
+                    <g id="y-axis">
+                        <text class="axis-label" id="y-axis-label"></text>
+                    </g>
+                    <g id="lines"></g>
+                </svg>
+            </div>
         </div>
-    </div>
 
-    <!-- D3.js library and its dependencies -->
-    <script src="https://d3js.org/d3.v7.min.js"></script>
-    <script src="https://d3js.org/d3-geo-projection.v4.js"></script>
-    <script src="https://d3js.org/topojson.v3.js"></script>
+        <!-- D3.js library and its dependencies -->
+        <script src="https://d3js.org/d3.v7.min.js"></script>
+        <script src="https://d3js.org/d3-geo-projection.v4.js"></script>
+        <script src="https://d3js.org/topojson.v3.js"></script>
 
-    <script src="js/script.js"></script>
-    <script src="js/map.js"></script>
-    <script src="js/line-chart.js"></script>
-    <script src="js/bar-chart.js"></script>
-</head>
+        <script src="js/script.js"></script>
+        <script src="js/map.js"></script>
+        <script src="js/line-chart.js"></script>
+        <script src="js/bar-chart.js"></script>
+    </head>
 
-<body>
-    <div class="container">
-        <h1><em><u>Climate Change: Factors and Rates</u></em></h1>
-        <details open>
-            <summary>What Is Climate Change?</summary>
-            <h2><em><u>What is Climate Change?</u></em></h2>
-            <p> The term <b><span style="color: rgb(126, 188, 232);">climate change</span></b> refers to long-term
-                shifts in temperatures and weather patterns. It can
-                also be referred
-                to as 'The Climate Crisis'. </p>
+    <body>
+        <div class="container">
+            <h1><em><u>Climate Change: Factors and Rates</u></em></h1>
+            <details open>
+                <summary>What Is Climate Change?</summary>
+                <h2><em><u>What is Climate Change?</u></em></h2>
+                <p>
+                    The term <b><span style="color: rgb(126, 188, 232);">climate change</span></b> refers to long-term shifts in temperatures and weather patterns. It can
+                    also be referred
+                    to as 'The Climate Crisis'.
+                </p>
 
-            <p>The climate crisis being an universal issue between countries and continents.
-                This topic has been discussed among scientists and environmentalists for years
-                and will continue to be discussed for many more... </p>
+                <p>
+                    The climate crisis being an universal issue between countries and continents.
+                    This topic has been discussed among scientists and environmentalists for years
+                    and will continue to be discussed for many more...
+                </p>
 
-            <p>The effects of climate change will
-                become irreversible if something is not done soon to reverse the effects. Since 1880,
-                Earth’s temperature has risen by an average of 0.14° F. per decade (Lindsey and Dahlman).</p>
+                <p>
+                    The effects of climate change will
+                    become irreversible if something is not done soon to reverse the effects. Since 1880,
+                    Earth’s temperature has risen by an average of 0.14° F. per decade (Lindsey and Dahlman).
+                </p>
 
-            <p>
-                The 10 warmest years that exist in the historical record have all occurred since 2010.
-            </p>
-        </details>
+                <p>
+                    The 10 warmest years that exist in the historical record have all occurred since 2010.
+                </p>
+            </details>
 
-        <details>
-            <summary>Factors of Climate Change</summary>
-            <h2><em><u>What Factors Play Into Climate Change?</u></em></h2>
-            <p>There are several different factors that play into climate change.
-                These factors include: <b>CO2 Emissions, Methane Emissions, and Deforestation</b>.</p>
+            <details>
+                <summary>Factors of Climate Change</summary>
+                <h2><em><u>What Factors Play Into Climate Change?</u></em></h2>
+                <p>
+                    There are several different factors that play into climate change.
+                    These factors include: <b>CO2 Emissions, Methane Emissions, and Deforestation</b>.
+                </p>
 
-            <p>
-                Our final project investigates a deeper analysis of the top three factors of climate change and the
-                effects they have on the <b>global temperature</b>.
+                <p>
+                    Our final project investigates a deeper analysis of the top three factors of climate change and the effects they have on the <b>global temperature</b>.
 
-            </p>
+                </p>
 
-            <h3><em><u> <span style="color: rgb(234, 215, 93);">CO2 Emissions</span></U></em></h3>
-            <p>Carbon dioxide (CO2) is the top greenhouse gas that is emitted naturally through the carbon cycle, and
-                through
-                activities such as: the burning of fossil fuels, solid wastes, wood
-                products, and can also be a result of chemical reactions.</p>
+                <h3><em><u> <span style="color: rgb(234, 215, 93);">CO2 Emissions</span></u></em></h3>
+                <p>
+                    Carbon dioxide (CO2) is the top greenhouse gas that is emitted naturally through the carbon cycle, and through
+                    activities such as: the burning of fossil fuels, solid wastes, wood
+                    products, and can also be a result of chemical reactions.
+                </p>
 
-            <p>The dataset used for this project was: <a
-                    href="https://www.kaggle.com/datasets/ulrikthygepedersen/co2-emissions-by-country"
-                    target="_blank">CO2 Emissions</a>.
-            </p>
+                <p>
+                    The dataset used for this project was: <a href="https://www.kaggle.com/datasets/ulrikthygepedersen/co2-emissions-by-country" target="_blank">CO2 Emissions</a>.
+                </p>
 
-            <h3><em><u> <span style="color: rgb(243, 164, 85);">Methane Emissions</span></U></em></h3>
-            <p>Methane emissions stem from the production and transportation of coal, natural gas, and oil.
-                Methane emissions can also be a result of livestock and other agricultural practices that are done.
-                Methane is the second most important greenhouse gas, coming in more potent than CO2 emissions. This
-                being said
-                , there exists less methane emissions than CO2 emissions in the atmosphere.</p>
+                <h3><em><u> <span style="color: rgb(243, 164, 85);">Methane Emissions</span></u></em></h3>
+                <p>
+                    Methane emissions stem from the production and transportation of coal, natural gas, and oil.
+                    Methane emissions can also be a result of livestock and other agricultural practices that are done.
+                    Methane is the second most important greenhouse gas, coming in more potent than CO2 emissions. This being said
+                    , there exists less methane emissions than CO2 emissions in the atmosphere.
+                </p>
 
-            <p>The dataset used for this project was: <a
-                    href="https://www.kaggle.com/datasets/kkhandekar/methane-emissions-across-the-world-19902018"
-                    target="_blank">Methane Emissions Across The World (1990-2018)</a>.
-            </p>
+                <p>
+                    The dataset used for this project was: <a href="https://www.kaggle.com/datasets/kkhandekar/methane-emissions-across-the-world-19902018" target="_blank">Methane Emissions Across The World (1990-2018)</a>.
+                </p>
 
-            <h3><em><u> <span style="color: rgb(125, 178, 105);">Deforestation Rates</span></U></em></h3>
-            <p> Deforestation can also be a causing factor to producing CO2 emissions and methane emissions.
-                Deforestation and forest degradation is responsible
-                for 15% of all greenhouse gas emissions (WWF). The number one cause for deforestation comes from
-                expansions in agriculture.</p>
+                <h3><em><u> <span style="color: rgb(125, 178, 105);">Deforestation Rates</span></u></em></h3>
+                <p>
+                    Deforestation can also be a causing factor to producing CO2 emissions and methane emissions. Deforestation and forest degradation is responsible
+                    for 15% of all greenhouse gas emissions (WWF). The number one cause for deforestation comes from expansions in agriculture.
+                </p>
 
-            <p>The dataset used for this project was: <a
-                    href="https://www.kaggle.com/datasets/chiticariucristian/deforestation-and-forest-loss"
-                    target="_blank">Deforestation and Forest Loss</a>.
-            </p>
+                <p>
+                    The dataset used for this project was: <a href="https://www.kaggle.com/datasets/chiticariucristian/deforestation-and-forest-loss" target="_blank">Deforestation and Forest Loss</a>.
+                </p>
 
-            <h3><em><u> <span style="color: rgb(191, 114, 114);">Global Temperature</span></U></em></h3>
-            <p>
-                Earth’s temperature has risen by an average of 0.14° F. per decade. The global temperature is the
-                average temperature of the Earth’s surface air and oceans.
-                The global temperature is constantly chagnging due to the three factors listed above. There are many
-                other factors that can play
-                into climate change, but this project looks at the top three factors.
-            </p>
+                <h3><em><u> <span style="color: rgb(191, 114, 114);">Global Temperature</span></u></em></h3>
+                <p>
+                    Earth’s temperature has risen by an average of 0.14° F. per decade. The global temperature is the average temperature of the Earth’s surface air and oceans.
+                    The global temperature is constantly chagnging due to the three factors listed above. There are many other factors that can play
+                    into climate change, but this project looks at the top three factors.
+                </p>
 
             <p>
                 The dataset used for this project was: <a
@@ -120,81 +122,75 @@
                     target="_blank">Global Warming Trends (1961-2022)</a>.
             </p>
 
-        </details>
+            </details>
 
-        <details open>
-            <summary>Global Map Visualization</summary>
-            <p><b>This interactive map shows a global visualization of the factors of climate change. The map ranges
-                    from the year 1990 to 2015:</b></p>
-            <div id="map-interaction-container">
-                <div>
-                    <button class="factor-button" id="co2-button">CO<sub>2</sub></button>
-                    <button class="factor-button" id="methane-button">Methane</button>
-                    <button class="factor-button" id="deforestation-button">Deforestation</button>
-                    <button class="factor-button" id="temperature-button">Temperature</button>
+            <details open>
+                <summary>Global Map Visualization</summary>
+                <p><b>This interactive map shows a global visualization of the factors of climate change. The map ranges from the year 1990 to 2015:</b></p>
+                <div id="map-interaction-container">
+                    <div>
+                        <button class="factor-button" id="co2-button">CO<sub>2</sub></button>
+                        <button class="factor-button" id="methane-button">Methane</button>
+                        <button class="factor-button" id="deforestation-button">Deforestation</button>
+                        <button class="factor-button" id="temperature-button">Temperature</button>
+                    </div>
+                    <div id="year-slider-container">
+                        <input type="range" id="year-slider" min="1990" max="2015" value="1990" step="1">
+                        <svg id="year-slider-labels"></svg>
+                    </div>
                 </div>
-                <div id="year-slider-container">
-                    <input type="range" id="year-slider" min="1990" max="2015" value="1990">
-                    <svg id="year-slider-labels"></svg>
+                <div id="content">
+                    <svg id="map">
+                        <g id="graticules"></g>
+                        <g id="countries"></g>
+                    </svg>
+                    <div id="map-legend-container">
+                        <text id="map-legend-title"></text>
+                        <svg id="map-legend"></svg>
+                    </div>
                 </div>
-            </div>
-            <div id="content">
-                <svg id="map">
-                    <g id="graticules"></g>
-                    <g id="countries"></g>
-                </svg>
-                <div id="map-legend-container">
-                    <text id="map-legend-title"></text>
-                    <svg id="map-legend"></svg>
-                </div>
-            </div>
-        </details>
+            </details>
 
-        <details>
-            <summary>Conclusions</summary>
-            <p>To Read Our Process Book Click Here: <a
-                    href="https://docs.google.com/document/d/1jyVGNowgt3giTvSIweeks_rxNPQpFj8Kul20zNdkUeo/edit?usp=sharing"
-                    target="_blank">Climate Change: Factors and Rates - Process Book</a>
-            </p>
+            <details>
+                <summary>Conclusions</summary>
+                <p>
+                    To Read Our Process Book Click Here: <a href="https://docs.google.com/document/d/1jyVGNowgt3giTvSIweeks_rxNPQpFj8Kul20zNdkUeo/edit?usp=sharing" target="_blank">Climate Change: Factors and Rates - Process Book</a>
+                </p>
 
-            <p> To View a Virtual Presentation of Our Project, Click Here: </p>
+                <p> To View a Virtual Presentation of Our Project, Click Here: </p>
 
-            <h2><b><u>Key Takeaways</u></b></h2>
-            <p> There exist a few key takeways that were found in the anaylsis of the project 'CLimate Change: Factors
-                and Rates'.
-                It was found that when a user increases the yearly slider, the variables (CO2 Emissions, Metha
-                Emissions, and Temperature)
-                fluctuate over time, but have a consistency to increase. This conclusion was made based off of the data
-                that was collected
-                and the color scale that was used in the visualization.
-            </p>
+                <h2><b><u>Key Takeaways</u></b></h2>
+                <p>
+                    There exist a few key takeways that were found in the anaylsis of the project 'CLimate Change: Factors and Rates'.
+                    It was found that when a user increases the yearly slider, the variables (CO2 Emissions, Metha Emissions, and Temperature)
+                    fluctuate over time, but have a consistency to increase. This conclusion was made based off of the data that was collected
+                    and the color scale that was used in the visualization.
+                </p>
 
-            <h2><b><u>Factor Rankings</u></b></h2>
-            <p>The following list ranks how much each factor contributes to the rise in global temperature:</p>
-            <h3><b><span style="color: rgb(235, 120, 54);"> 1. </span></b> CO2 Emissions</h3>
-            <h3><b><span style="color: rgb(235, 120, 54);"> 2. </span></b> Methane Emissions</h3>
-            <h3><b><span style="color: rgb(235, 120, 54);"> 3. </span></b>Deforestation Rates</h3>
+                <h2><b><u>Factor Rankings</u></b></h2>
+                <p>The following list ranks how much each factor contributes to the rise in global temperature:</p>
+                <h3><b><span style="color: rgb(235, 120, 54);"> 1. </span></b> CO2 Emissions</h3>
+                <h3><b><span style="color: rgb(235, 120, 54);"> 2. </span></b> Methane Emissions</h3>
+                <h3><b><span style="color: rgb(235, 120, 54);"> 3. </span></b>Deforestation Rates</h3>
 
-            <p>
-                During the creation of the project, a question was asked: <b><i>What rate is the temperature rising due
-                        to the following factors: CO2 emissions,
-                        methane emissions, and deforestation?</i></b> This question was answered by the creation of the
-                line chart. The line chart shows the rate of the temperature
-                rising over time. The line chart also shows the rate of the CO2 emissions, methane emissions, and
-                deforestation over time. The line chart shows that the rate of the temperature
-                rising is increasing at a faster rate than the CO2 emissions, methane emissions, and deforestation. This
-                conclusion was made based off of the data that was collected.
-            </p>
-        </details>
+                <p>
+                    During the creation of the project, a question was asked: <b>
+                        <i>
+                            What rate is the temperature rising due to the following factors: CO2 emissions,
+                            methane emissions, and deforestation?
+                        </i>
+                    </b> This question was answered by the creation of the line chart. The line chart shows the rate of the temperature
+                    rising over time. The line chart also shows the rate of the CO2 emissions, methane emissions, and deforestation over time. The line chart shows that the rate of the temperature
+                    rising is increasing at a faster rate than the CO2 emissions, methane emissions, and deforestation. This conclusion was made based off of the data that was collected.
+                </p>
+            </details>
 
-        <details>
-            <summary>References</summary>
-            <h3><b>Works Cited</b></h3>
-            <p>The cited works that exist on this page can be found on the 'Works Cited' page of our process book: <a
-                    href="https://docs.google.com/document/d/1jyVGNowgt3giTvSIweeks_rxNPQpFj8Kul20zNdkUeo/edit?usp=sharing"
-                    target="_blank">Climate Change: Factors and Rates - Process Book</a></p>
-        </details>
-    </div>
-</body>
+            <details>
+                <summary>References</summary>
+                <h3><b>Works Cited</b></h3>
+                <p>The cited works that exist on this page can be found on the 'Works Cited' page of our process book: <a href="https://docs.google.com/document/d/1jyVGNowgt3giTvSIweeks_rxNPQpFj8Kul20zNdkUeo/edit?usp=sharing" target="_blank">Climate Change: Factors and Rates - Process Book</a></p>
+            </details>
+        </div>
+    </body>
 
 </html>
