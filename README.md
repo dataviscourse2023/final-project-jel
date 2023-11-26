@@ -49,12 +49,11 @@
     - Experiment with different color scales.
     - Experiment with different projections.
     - (Optional) Add tooltip to legend to show more information about the color scale.
+      - The code has been added, but info needs to be added to the tooltip.
     - (Optional) Add tooltip to countries to show more information about the country.
  - Line Chart:
+    - ***MUST*** add a legend to the chart.
     - Factor and document code.
-    - Fix x-axis so it displays the correct years.
-    - Fix y-axis so it the label so it is the correct distance from the axis when the user switches between factors.
-    - Fix the main label to display correctly.
-    - Add embellishments to the chart.
-    - Add legend to the chart.
+    - Fix x-axis so it displays the correct years. Currently, the x-axis displays the years 1990-2014, but the data only goes up to 2015.
+    - Add embellishments to the chart.    
     - (Optional) Add tooltip to show more information about the data point. Can adapt code from HW 4.
