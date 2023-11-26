@@ -245,7 +245,7 @@ class MapVis {
         this.getMinMaxValues();
 
         if (!this.colorScale) {
-            this.colorScale = d3.scaleSequential(d3.interpolateWarm)
+            this.colorScale = d3.scaleSequential(d3.interpolateWarm) // Try d3.interpolateTurbo
                 .domain([this.minValue, this.maxValue]);
         } else {
             this.colorScale.domain([this.minValue, this.maxValue]);
