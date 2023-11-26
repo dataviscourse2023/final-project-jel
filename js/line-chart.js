@@ -65,6 +65,49 @@ class LineChartVis {
             .style('fill', 'none')
             .style('stroke-dasharray', ('3, 3'));
 
+        lines.selectAll('circle')
+            .data(trendlineData)
+            .enter()
+            .append('circle')
+            .attr('cx', d => xScale(new Date(d.year)) + this.margin.left * 2)
+            .attr('cy', d => yScale(d.value) + this.margin.bottom * 2)
+            .attr('r', 2)
+            .attr('fill', 'red')
+            .attr('stroke', 'red');
+
+        const lineChartLegend = d3.select('#line-chart-legend');
+        lineChartLegend.selectAll('*').remove();
+        
+        lineChartLegend.append('line')
+            .attr('class', 'line-chart-legend')
+            .attr('x1', 0)
+            .attr('y1', 10)
+            .attr('x2', 30)
+            .attr('y2', 10)
+            .attr('stroke', 'red')
+            .attr('stroke-width', 2)
+            .style('stroke-dasharray', ('3, 3'));
+
+        lineChartLegend.append('line')
+            .attr('class', 'line-chart-legend')
+            .attr('x1', 0)
+            .attr('y1', 30)
+            .attr('x2', 30)
+            .attr('y2', 30)
+            .attr('stroke', 'black')
+            .attr('stroke-width', 2);
+
+        lineChartLegend.append('text')
+            .attr('class', 'line-chart-legend')
+            .attr('x', 40)
+            .attr('y', 15)
+            .text('Trendline');
+
+        lineChartLegend.append('text')
+            .attr('class', 'line-chart-legend')
+            .attr('x', 40)
+            .attr('y', 35)
+            .text(this.globalApplicationState.selectedFactor);
     }
 
 

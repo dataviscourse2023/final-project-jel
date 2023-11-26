@@ -14,13 +14,18 @@
         <div class="modal-content">
             <span id="close-modal-button" class="close">&times;</span>
             <h2 id="modal-title"></h2>
-            <svg id="line-chart">
-                <g id="x-axis"></g>
-                <g id="y-axis">
-                    <text class="axis-label" id="y-axis-label"></text>
-                </g>
-                <g id="lines"></g>
-            </svg>
+            <div id="line-chart-container">
+                <svg id="line-chart">
+                    <g id="x-axis"></g>
+                    <g id="y-axis">
+                        <text class="axis-label" id="y-axis-label"></text>
+                    </g>
+                    <g id="lines"></g>
+                </svg>
+                <!-- <div id="line-chart-legend-container"> -->
+                <svg id="line-chart-legend"></svg>
+                <!-- </div> -->
+            </div>
         </div>
     </div>
 

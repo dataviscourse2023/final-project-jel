@@ -189,7 +189,7 @@ p {
     margin: 5% auto;
     padding: 20px;
     border: 1px solid black;
-    width: 700px;
+    width: 800px;
 }
 
 #modal-title {
@@ -233,5 +233,25 @@ p {
 
 #line-chart {
     /* background-color: red; */
-    padding: 0px 20px 20px 20px;
+    /* padding: 0px 20px 0px 0px; */
+}
+
+#line-chart-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+}
+
+/* #line-chart-legend-container {
+    height: 20px;
+    width: 135px;
+} */
+
+#line-chart-legend {
+    height: 40px;
+    width: 135px;
+    border: #000 solid 1px;
+    padding: 5px;
+    border-radius: 5px;
 }

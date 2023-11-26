@@ -62,9 +62,6 @@ class MapVis {
                     })
                     .attr('class', 'legend-text');
 
-                // d3.select('#map-legend-title')
-                //     .text(() => labels[selectedFactor]);
-
                 // Create a group to hold the title and the SVG
                 const titleGroup = d3.select('#map-legend-title').selectAll('g')
                     .data([null]); // Only one group needed
@@ -117,7 +114,7 @@ class MapVis {
                         .attr('fill', 'currentColor');
                 }
 
-                
+
                 /**
                  * Displays a tooltip with content when the info icon is clicked.
                  * 
@@ -158,8 +155,8 @@ class MapVis {
                             .on('end', function () {
                                 d3.select(this).style('display', 'none');
                             });
-                        }
-                    });
+                    }
+                });
 
                 return this;
             };
