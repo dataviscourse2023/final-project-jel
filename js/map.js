@@ -15,6 +15,7 @@ class MapVis {
         this.sliderWidth = this.yearSlider.node().clientWidth;
         const contentWidth = d3.select('#content').node().clientWidth;
         const legendContainerWidth = d3.select('#map-legend-container').node().clientWidth;
+        this.body = d3.select('body');
 
         // Set up the map projection
         const projection = d3.geoWinkel3()
@@ -87,6 +88,7 @@ class MapVis {
                         .attr('transform', `translate(5, 0)`);
                 };
 
+
                 /**
                  * Draws an info icon using SVG.
                  */
@@ -97,7 +99,10 @@ class MapVis {
                         .attr('class', 'bi bi-info-circle')
                         .attr('viewBox', '0 0 16 16')
                         .merge(titleGroup.select('svg'))
-                        .attr('transform', `translate(5, 0)`);
+                        .attr('transform', `translate(5, 0)`)
+                        .on("click", function (event) {
+                            showTooltip(event);
+                        });
 
                     // https://icons.getbootstrap.com/icons/info-circle/
 
@@ -111,6 +116,51 @@ class MapVis {
                         .attr('d', 'm8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0')
                         .attr('fill', 'currentColor');
                 }
+
+                
+                /**
+                 * Displays a tooltip with content when the info icon is clicked.
+                 * 
+                 * @param {Event} event - The click event that triggered the tooltip display.
+                 */
+                function showTooltip(event) {
+
+                    // Stop propagation to prevent the document click handler from immediately hiding the tooltip
+                    event.stopPropagation();
+
+                    // Get the position of the info icon
+                    const iconX = d3.select('.bi').node().getBoundingClientRect().x;
+                    const iconY = d3.select('.bi').node().getBoundingClientRect().y;
+
+                    d3.select('#tooltip')
+                        .style('display', 'block')
+                        .style('left', iconX + window.scrollX + 10 + 'px')
+                        .style('top', iconY + window.scrollY - 125 + 'px')
+                        .html('Your tooltip content here.Your tooltip content here.Your tooltip content here.' +
+                            'Your tooltip content here.Your tooltip content here.Your tooltip content here.' +
+                            'Your tooltip content here.Your tooltip content here.Your tooltip content here.' +
+                            'Your tooltip content here.Your tooltip content here.Your tooltip content here.')
+                        .transition()
+                        .duration(250)
+                        .style('opacity', 1);
+                }
+
+                // Hide tooltip when clicking outside
+                d3.select('body').on('click', function (event) {
+                    const outsideTooltip = !document.getElementById('tooltip').contains(event.target);
+                    const notIconClick = !d3.select(event.target).classed('bi-info-circle');
+
+                    if (outsideTooltip && notIconClick) {
+                        d3.select('#tooltip')
+                            .transition()
+                            .duration(250)
+                            .style('opacity', 0)
+                            .on('end', function () {
+                                d3.select(this).style('display', 'none');
+                            });
+                        }
+                    });
+
                 return this;
             };
 

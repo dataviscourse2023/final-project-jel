@@ -51,7 +51,6 @@ const globalConstants = {
 
 //******* APPLICATION MOUNTING *******
 loadData().then((loadedData) => {
-    // console.log('Here is the imported data:', loadedData.dataArrays[0]);
 
     // Store the loaded data into the globalApplicationState
     globalApplicationState.data = d3.filter(loadedData.dataArrays[0], d => d.year >= START_DATE && d.year <= END_DATE);
@@ -106,7 +105,7 @@ const closeModalBtn = document.getElementById('close-modal-button');
 
 // Open the modal
 openModalBtn.addEventListener('click', () => {
-    modal.style.display = 'block';
+    // modal.style.display = 'block';
 });
 
 // Close the modal

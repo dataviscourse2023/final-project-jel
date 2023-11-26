@@ -2,14 +2,16 @@ body {
     font-family: Arial, sans-serif;
     background-image: url('forest.jpg');
     background-size: cover;
-    background-attachment: fixed
+    background-attachment: fixed;
+    background-color: rgba(255, 255, 255, 0.25);
+    background-blend-mode: lighten;
 }
 
 .container {
     width: 80%;
     max-width: 1000px;
     margin: 0 auto;
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: rgba(255, 255, 255, 1);
     border-radius: 5px;
     padding: 30px;
 }
@@ -157,6 +159,16 @@ p {
 .legend-text {
     font-size: 50%;
     margin-bottom: 20px;
+}
+
+#tooltip {
+    display: none;
+    opacity: 0;
+    width: 400px;
+    position: absolute;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #f5a66d;
 }
 
 /* Modal Styles */
