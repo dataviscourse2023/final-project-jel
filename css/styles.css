@@ -243,15 +243,25 @@ p {
     width: 100%;
 }
 
-/* #line-chart-legend-container {
-    height: 20px;
-    width: 135px;
-} */
-
 #line-chart-legend {
     height: 40px;
     width: 135px;
     border: #000 solid 1px;
     padding: 5px;
     border-radius: 5px;
+}
+
+.line-chart-trendline {
+    stroke: red;
+    stroke-width: 2px;
+    stroke-dasharray: 3, 3;
+}
+
+.line-chart-line {
+    stroke: black;
+    stroke-width: 2px;
+}
+
+.line-chart-legend-text {
+    font-size: 75%;
 }

@@ -39,6 +39,7 @@ class LineChartVis {
         lines.append('path')
             .datum(data)
             .attr('d', line)
+            .attr('class', 'line-chart-line')
             // Experimenting with animation
             // Draws backwards for some charts. Need to fix
             // .transition()
@@ -60,10 +61,7 @@ class LineChartVis {
         lines.append('path')
             .datum(trendlineData)
             .attr('d', line)
-            .attr('stroke', 'red')
-            .attr('stroke-width', 2)
-            .style('fill', 'none')
-            .style('stroke-dasharray', ('3, 3'));
+            .attr('class', 'line-chart-trendline');
 
         lines.selectAll('circle')
             .data(trendlineData)
@@ -79,35 +77,30 @@ class LineChartVis {
         lineChartLegend.selectAll('*').remove();
         
         lineChartLegend.append('line')
-            .attr('class', 'line-chart-legend')
+            .attr('class', 'line-chart-trendline')
             .attr('x1', 0)
             .attr('y1', 10)
             .attr('x2', 30)
-            .attr('y2', 10)
-            .attr('stroke', 'red')
-            .attr('stroke-width', 2)
-            .style('stroke-dasharray', ('3, 3'));
+            .attr('y2', 10);
 
         lineChartLegend.append('line')
-            .attr('class', 'line-chart-legend')
+            .attr('class', 'line-chart-line')
             .attr('x1', 0)
             .attr('y1', 30)
             .attr('x2', 30)
-            .attr('y2', 30)
-            .attr('stroke', 'black')
-            .attr('stroke-width', 2);
+            .attr('y2', 30);
 
         lineChartLegend.append('text')
-            .attr('class', 'line-chart-legend')
+            .attr('class', 'line-chart-legend-text')
             .attr('x', 40)
             .attr('y', 15)
             .text('Trendline');
 
         lineChartLegend.append('text')
-            .attr('class', 'line-chart-legend')
+            .attr('class', 'line-chart-legend-text')
             .attr('x', 40)
             .attr('y', 35)
-            .text(this.globalApplicationState.selectedFactor);
+            .text(this.globalConstants.labels[this.globalApplicationState.selectedFactor]);
     }
 
 
