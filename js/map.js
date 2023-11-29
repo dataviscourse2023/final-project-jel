@@ -26,7 +26,7 @@ class MapVis {
             .projection(projection);
 
         // D3.js in Action, Second Edition, Chapter 10, Listing 10.2
-        // This function creates a legend for the map
+        // Creates a legend for the map
         d3.mapLegend = () => {
             const ticks = this.colorScale.ticks(10);
             const colorScale = this.colorScale;
@@ -67,7 +67,6 @@ class MapVis {
                     .data([null]); // Only one group needed
 
                 titleGroup.exit().remove();
-
                 const titleGroupEnter = titleGroup.enter()
                     .append('g')
                     .attr('class', 'legend-title-group');
@@ -102,7 +101,6 @@ class MapVis {
                         });
 
                     // https://icons.getbootstrap.com/icons/info-circle/
-
                     // Append the first path to the SVG
                     infoIcon.append('path')
                         .attr('d', 'M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16')
@@ -183,55 +181,11 @@ class MapVis {
             .attr('d', path)
             .attr('class', 'country')
             .attr('id', d => d.id)
-            // .on('mouseover', (event, d) => this.mouseOver(event, d))
-            // .on('mouseleave', (event, d) => this.mouseLeave(event, d))
             .on('click', (event, _d) => this.displayModal(event));
 
         this.drawGraticules(path);
         this.updateMap();
     }
-
-
-    // Adapted from https://d3-graph-gallery.com/graph/choropleth_hover_effect.html
-    /**
-     * Handles the mouseover event for the map.
-     * @param {Event} event - The mouseover event.
-     * @param {_d} _d - The data associated with the event.
-     */
-    // mouseOver(event, _d) {
-    //     d3.selectAll('.country')
-    //         .transition()
-    //         .duration(0)
-    //         .style('opacity', 0.75);
-
-    //     // Highlight country under mouse
-    //     d3.select(event.currentTarget)
-    //         .transition()
-    //         .duration(0)
-    //         .style('opacity', 1);
-    // }
-
-    // mouseOver(event, _d) {
-    //     d3.select(event.currentTarget)
-    //         // .style('opacity', 0.75)
-    //         // .transition()
-    //         // .duration(0)
-    //         .style('opacity', 1);
-    // }
-
-
-    // Adapted from https://d3-graph-gallery.com/graph/choropleth_hover_effect.html
-    /**
-     * Handles the mouse leave event for the map.
-     * @param {Event} _event - The mouse leave event.
-     * @param {Object} _d - The data associated with the event.
-     */
-    // mouseLeave(_event, _d) {
-    //     d3.selectAll('.country')
-    //         .transition()
-    //         .duration(0)
-    //         .style('opacity', 1);
-    // }
 
 
     /**
@@ -382,12 +336,13 @@ class MapVis {
      */
     displayModal(event) {
         this.globalApplicationState.selectedLocations = [event.currentTarget.id];
-        this.globalApplicationState.lineChart.drawLineChart();
 
-        // TODO: Implement error handling for when countryName is undefined
-        // if (countryName != undefined) {
-        // d3.select('#value').text(value);
+        // If the user clicks on a country that is not in the data, do nothing
+        if (!this.globalApplicationState.data.find(d => d.country_code === this.globalApplicationState.selectedLocations[0])) {
+            return;
+        }
+
+        this.globalApplicationState.lineChart.drawLineChart();
         modal.style.display = 'block';
-        // }
     }
 }

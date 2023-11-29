@@ -52,8 +52,6 @@
       - The code has been added, but info needs to be added to the tooltip.
     - (Optional) Add tooltip to countries to show more information about the country.
  - Line Chart:
-    - ***MUST*** finish formatting legend.
     - Factor and document code.
-    - Fix x-axis so it displays the correct years. Currently, the x-axis displays the years 1990-2014, but the data only goes up to 2015.
-    - Add embellishments to the chart.    
+    - Fix x-axis so it displays the correct years. Currently, the x-axis displays the years 1990-2014, but the data only goes up to 2015.  
     - (Optional) Add tooltip to show more information about the data point. Can adapt code from HW 4.

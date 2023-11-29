@@ -6,10 +6,11 @@
  * The main functionality of the code is to display various environmental data on a world map and line chart.
  * The user can select different factors such as CO2 emissions, methane emissions, deforestation, and temperature.
  * The code also includes modal functionality for displaying additional information.
+ * The code is adapted from the Visualization for Data Science Homework 4.
+ * The world.json file is adapted from Visualization for Data Science Homework 4.
  */
-// world.json source: Visualization for Data Science Homework 4
-// Adapted from Visualization for Data Science Homework 4
 
+// Date range for the data
 const START_DATE = 1990;
 const END_DATE = 2015;
 
@@ -34,6 +35,7 @@ const globalApplicationState = {
     lineChart: null,
 };
 
+// ******* CONSTANTS *******
 const globalConstants = {
     titles: {
         co2: 'CO₂ Emissions',
@@ -87,7 +89,6 @@ loadData().then((loadedData) => {
 
     d3.select('#temperature-button')
         .on('click', () => {
-            // loadedData.dataArrays[3].forEach(d => d.value = parseFloat(d.value) + 14);
             globalApplicationState.data = d3.filter(loadedData.dataArrays[3], d => d.year >= START_DATE && d.year <= END_DATE);
             globalApplicationState.selectedFactor = 'temperature';
             worldMap.updateMap();
@@ -102,11 +103,6 @@ const openModalBtn = document.getElementById('open-modal-button');
 
 // Get the element that closes the modal
 const closeModalBtn = document.getElementById('close-modal-button');
-
-// Open the modal
-openModalBtn.addEventListener('click', () => {
-    // modal.style.display = 'block';
-});
 
 // Close the modal
 closeModalBtn.addEventListener('click', () => {
