@@ -15,6 +15,7 @@ class MapVis {
         this.sliderWidth = this.yearSlider.node().clientWidth;
         const contentWidth = d3.select('#content').node().clientWidth;
         const legendContainerWidth = d3.select('#map-legend-container').node().clientWidth;
+        this.body = d3.select('body');
 
         // Set up the map projection
         const projection = d3.geoWinkel3()
@@ -25,7 +26,7 @@ class MapVis {
             .projection(projection);
 
         // D3.js in Action, Second Edition, Chapter 10, Listing 10.2
-        // This function creates a legend for the map
+        // Creates a legend for the map
         d3.mapLegend = () => {
             const ticks = this.colorScale.ticks(10);
             const colorScale = this.colorScale;
@@ -61,15 +62,11 @@ class MapVis {
                     })
                     .attr('class', 'legend-text');
 
-                // d3.select('#map-legend-title')
-                //     .text(() => labels[selectedFactor]);
-
                 // Create a group to hold the title and the SVG
                 const titleGroup = d3.select('#map-legend-title').selectAll('g')
                     .data([null]); // Only one group needed
 
                 titleGroup.exit().remove();
-
                 const titleGroupEnter = titleGroup.enter()
                     .append('g')
                     .attr('class', 'legend-title-group');
@@ -87,6 +84,10 @@ class MapVis {
                         .attr('transform', `translate(5, 0)`);
                 };
 
+
+                /**
+                 * Draws an info icon using SVG.
+                 */
                 function drawInfoIcon() {
                     const infoIcon = titleGroupEnter.append('svg')
                         .attr('width', 16)
@@ -94,8 +95,12 @@ class MapVis {
                         .attr('class', 'bi bi-info-circle')
                         .attr('viewBox', '0 0 16 16')
                         .merge(titleGroup.select('svg'))
-                        .attr('transform', `translate(5, 0)`);
+                        .attr('transform', `translate(5, 0)`)
+                        .on('mouseover', function (event) {
+                            showTooltip(event);
+                        });
 
+                    // https://icons.getbootstrap.com/icons/info-circle/
                     // Append the first path to the SVG
                     infoIcon.append('path')
                         .attr('d', 'M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16')
@@ -106,6 +111,51 @@ class MapVis {
                         .attr('d', 'm8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0')
                         .attr('fill', 'currentColor');
                 }
+
+
+                /**
+                 * Displays a tooltip with content when the info icon is clicked.
+                 * 
+                 * @param {Event} event - The click event that triggered the tooltip display.
+                 */
+                function showTooltip(event) {
+
+                    // Stop propagation to prevent the document click handler from immediately hiding the tooltip
+                    event.stopPropagation();
+
+                    // Get the position of the info icon
+                    const iconX = d3.select('.bi').node().getBoundingClientRect().x;
+                    const iconY = d3.select('.bi').node().getBoundingClientRect().y;
+
+                    d3.select('#tooltip')
+                        .style('display', 'block')
+                        .style('left', iconX + window.scrollX + 10 + 'px')
+                        .style('top', iconY + window.scrollY - 125 + 'px')
+                        .html('Your tooltip content here.Your tooltip content here.Your tooltip content here.' +
+                            'Your tooltip content here.Your tooltip content here.Your tooltip content here.' +
+                            'Your tooltip content here.Your tooltip content here.Your tooltip content here.' +
+                            'Your tooltip content here.Your tooltip content here.Your tooltip content here.')
+                        .transition()
+                        .duration(250)
+                        .style('opacity', 1);
+                }
+
+                // Hide tooltip
+                d3.select('body').on('mouseout', function (event) {
+                    const outsideTooltip = !document.getElementById('tooltip').contains(event.target);
+                    const notIconClick = !d3.select(event.target).classed('bi-info-circle');
+
+                    if (outsideTooltip && notIconClick) {
+                        d3.select('#tooltip')
+                            .transition()
+                            .duration(250)
+                            .style('opacity', 0)
+                            .on('end', function () {
+                                d3.select(this).style('display', 'none');
+                            });
+                    }
+                });
+
                 return this;
             };
 
@@ -131,55 +181,11 @@ class MapVis {
             .attr('d', path)
             .attr('class', 'country')
             .attr('id', d => d.id)
-            // .on('mouseover', (event, d) => this.mouseOver(event, d))
-            // .on('mouseleave', (event, d) => this.mouseLeave(event, d))
             .on('click', (event, _d) => this.displayModal(event));
 
         this.drawGraticules(path);
         this.updateMap();
     }
-
-
-    // Adapted from https://d3-graph-gallery.com/graph/choropleth_hover_effect.html
-    /**
-     * Handles the mouseover event for the map.
-     * @param {Event} event - The mouseover event.
-     * @param {_d} _d - The data associated with the event.
-     */
-    // mouseOver(event, _d) {
-    //     d3.selectAll('.country')
-    //         .transition()
-    //         .duration(0)
-    //         .style('opacity', 0.75);
-
-    //     // Highlight country under mouse
-    //     d3.select(event.currentTarget)
-    //         .transition()
-    //         .duration(0)
-    //         .style('opacity', 1);
-    // }
-
-    // mouseOver(event, _d) {
-    //     d3.select(event.currentTarget)
-    //         // .style('opacity', 0.75)
-    //         // .transition()
-    //         // .duration(0)
-    //         .style('opacity', 1);
-    // }
-
-
-    // Adapted from https://d3-graph-gallery.com/graph/choropleth_hover_effect.html
-    /**
-     * Handles the mouse leave event for the map.
-     * @param {Event} _event - The mouse leave event.
-     * @param {Object} _d - The data associated with the event.
-     */
-    // mouseLeave(_event, _d) {
-    //     d3.selectAll('.country')
-    //         .transition()
-    //         .duration(0)
-    //         .style('opacity', 1);
-    // }
 
 
     /**
@@ -193,7 +199,7 @@ class MapVis {
         this.getMinMaxValues();
 
         if (!this.colorScale) {
-            this.colorScale = d3.scaleSequential(d3.interpolateWarm)
+            this.colorScale = d3.scaleSequential(d3.interpolateWarm) // Try d3.interpolateTurbo
                 .domain([this.minValue, this.maxValue]);
         } else {
             this.colorScale.domain([this.minValue, this.maxValue]);
@@ -330,12 +336,13 @@ class MapVis {
      */
     displayModal(event) {
         this.globalApplicationState.selectedLocations = [event.currentTarget.id];
-        this.globalApplicationState.lineChart.drawLineChart();
 
-        // TODO: Implement error handling for when countryName is undefined
-        // if (countryName != undefined) {
-        // d3.select('#value').text(value);
+        // If the user clicks on a country that is not in the data, do nothing
+        if (!this.globalApplicationState.data.find(d => d.country_code === this.globalApplicationState.selectedLocations[0])) {
+            return;
+        }
+
+        this.globalApplicationState.lineChart.drawLineChart();
         modal.style.display = 'block';
-        // }
     }
 }

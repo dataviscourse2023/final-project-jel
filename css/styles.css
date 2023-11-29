@@ -2,14 +2,14 @@ body {
     font-family: Arial, sans-serif;
     background-image: url('forest.jpg');
     background-size: cover;
-    background-attachment: fixed
+    background-attachment: fixed;
 }
 
 .container {
     width: 80%;
     max-width: 1000px;
     margin: 0 auto;
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: rgba(255, 255, 255, 1);
     border-radius: 5px;
     padding: 30px;
 }
@@ -45,11 +45,6 @@ p {
     background-color: #f2f2f2;
     margin: 0;
 }
-
-/* #value {
-    width: 800px;
-    height: 500px;
-} */
 
 #map-interaction-container {
     margin-top: 20px;
@@ -108,10 +103,6 @@ p {
     stroke-width: 0.5;
 }
 
-/* #countries>.country:not(.filled) {
-    fill: #ccc;
-} */
-
 #countries>.country.selected {
     stroke-width: 2px;
     stroke: black;
@@ -159,6 +150,16 @@ p {
     margin-bottom: 20px;
 }
 
+#tooltip {
+    display: none;
+    opacity: 0;
+    width: 400px;
+    position: absolute;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #f5a66d;
+}
+
 /* Modal Styles */
 .modal {
     display: none;
@@ -177,7 +178,7 @@ p {
     margin: 5% auto;
     padding: 20px;
     border: 1px solid black;
-    width: 700px;
+    width: 825px;
 }
 
 #modal-title {
@@ -207,7 +208,7 @@ p {
 }
 
 .axis-label {
-    font-size: 12px;
+    font-size: 150%;
     font-weight: bold;
     margin-bottom: 5px;
     fill: black;
@@ -219,7 +220,32 @@ p {
     text-anchor: middle;
 }
 
-#line-chart {
-    /* background-color: red; */
-    padding: 0px 20px 20px 20px;
+#line-chart-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+}
+
+#line-chart-legend {
+    height: 50px;
+    width: 165px;
+    border: #000 solid 1px;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.line-chart-trendline {
+    stroke: red;
+    stroke-width: 2px;
+    stroke-dasharray: 3, 3;
+}
+
+.line-chart-line {
+    stroke: black;
+    stroke-width: 2px;
+}
+
+.line-chart-legend-text {
+    font-size: 75%;
 }
