@@ -125,21 +125,21 @@ class LineChartVis {
                     line = [],
                     lineNumber = 0,
                     lineHeight = 1.1, // ems
-                    y = text.attr("y"),
-                    dy = parseFloat(text.attr("dy")),
-                    tspan = text.text(null).append("tspan").attr("x", 40).attr("y", y).attr("dy", dy + "em");
+                    y = text.attr('y'),
+                    dy = parseFloat(text.attr('dy')),
+                    tspan = text.text(null).append('tspan').attr('x', 40).attr('y', y).attr('dy', dy + 'em');
 
                 // Add words to the line until the width is exceeded
                 while (word = words.pop()) {
                     line.push(word);
-                    tspan.text(line.join(" "));
+                    tspan.text(line.join(' '));
 
                     // If the width is exceeded, remove the last word and append a new tspan
                     if (tspan.node().getComputedTextLength() > width) {
                         line.pop();
-                        tspan.text(line.join(" "));
+                        tspan.text(line.join(' '));
                         line = [word];
-                        tspan = text.append("tspan").attr("x", 40).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
+                        tspan = text.append('tspan').attr('x', 40).attr('y', y).attr('dy', ++lineNumber * lineHeight + dy + 'em').text(word);
                     }
                 }
             });

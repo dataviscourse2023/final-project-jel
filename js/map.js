@@ -96,7 +96,7 @@ class MapVis {
                         .attr('viewBox', '0 0 16 16')
                         .merge(titleGroup.select('svg'))
                         .attr('transform', `translate(5, 0)`)
-                        .on("click", function (event) {
+                        .on('mouseover', function (event) {
                             showTooltip(event);
                         });
 
@@ -140,8 +140,8 @@ class MapVis {
                         .style('opacity', 1);
                 }
 
-                // Hide tooltip when clicking outside
-                d3.select('body').on('click', function (event) {
+                // Hide tooltip
+                d3.select('body').on('mouseout', function (event) {
                     const outsideTooltip = !document.getElementById('tooltip').contains(event.target);
                     const notIconClick = !d3.select(event.target).classed('bi-info-circle');
 
