@@ -3,7 +3,7 @@ body {
     background-image: url('forest.jpg');
     background-size: cover;
     background-attachment: fixed;
-    background-color:rgba(175, 175, 175, 0.75);
+    background-color: rgba(175, 175, 175, 0.75);
     background-blend-mode: overlay;
 }
 
@@ -58,9 +58,18 @@ p {
 /* Factor Button Styles */
 .factor-button {
     justify-content: space-between;
+    height: 24px;
     width: 100px;
     margin: 10px;
+}
+
+.factor-button-unselected {
     background-color: #f5a66d;
+    color: white;
+}
+
+.factor-button-selected {
+    background-color: #008031;
     color: white;
 }
 
@@ -139,8 +148,7 @@ p {
 
 #map-legend-title {
     align-self: center;
-    font-family:Georgia, 'Times New Roman', Times, serif;
-    /* font-size: 110%; */
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 #map-legend {
@@ -185,7 +193,7 @@ p {
 
 #modal-title {
     text-align: center;
-    font-family:Georgia, 'Times New Roman', Times, serif;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 .close {
@@ -206,7 +214,7 @@ p {
 #lines {
     fill: none;
     stroke: black;
-    stroke-width: 1.5px;   
+    stroke-width: 1.5px;
 }
 
 .axis-label {
@@ -214,7 +222,7 @@ p {
     font-weight: bold;
     margin-bottom: 5px;
     fill: black;
-    font-family:Georgia, 'Times New Roman', Times, serif;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 #y-axis-label {
@@ -250,4 +258,17 @@ p {
 
 .line-chart-legend-text {
     font-size: 75%;
+}
+
+#world-temp-checkbox-text {
+    font-size: 75%;
+    font-weight: bold;
+    margin-bottom: 5px;
+    fill: black;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+#world-temp-checkbox-container {
+    margin-top: 10px;
+    visibility: hidden;
 }

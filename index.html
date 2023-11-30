@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <title>Team JEL Final Project</title>
     <link rel="stylesheet" href="css/styles.css">
-    
+
     <!-- Modal -->
     <div id="country-modal" class="modal">
         <div class="modal-content">
@@ -21,7 +21,11 @@
                 </svg>
                 <svg id="line-chart-legend"></svg>
             </div>
-            <!-- <input type="checkbox" id="world-temp-checkbox"> -->
+            <div id="world-temp-checkbox-container">
+                <input type="checkbox" id="world-temp-checkbox">
+                <text id="world-temp-checkbox-text">Check to view world surface temperature anomaly</text>
+                </input>
+            </div>
         </div>
     </div>
 
@@ -51,8 +55,9 @@
                 </b>
 
             <p>
-                Our Process Book: <a href="https://docs.google.com/document/d/1jyVGNowgt3giTvSIweeks_rxNPQpFj8Kul20zNdkUeo/edit?usp=sharing"
-                                                        target="_blank">Climate Change: Factors and Rates - Process Book</a>
+                Our Process Book: <a
+                    href="https://docs.google.com/document/d/1jyVGNowgt3giTvSIweeks_rxNPQpFj8Kul20zNdkUeo/edit?usp=sharing"
+                    target="_blank">Climate Change: Factors and Rates - Process Book</a>
             </p>
 
             <p> Virtual Presentation of Our Project: </p>
@@ -61,8 +66,10 @@
 
             <h2><em><u>Project Introduction</u></em></h2>
             <p>
-                The project <b>'Climate Change: Factors and Rates'</b> is a project that investigates the top three factors of
-                climate change and the correlation they have to the global temperature anomaly. The three factors that are
+                The project <b>'Climate Change: Factors and Rates'</b> is a project that investigates the top three
+                factors of
+                climate change and the correlation they have to the global temperature anomaly. The three factors that
+                are
                 investigated are: CO2 Emissions, Methane Emissions, and Deforestation Rates. The project also
                 investigates the rate of the global temperature anomaly rising due to the three factors listed above.
             </p>
@@ -114,8 +121,9 @@
             </p>
 
             <p>
-                The dataset used for this project was: <a href="https://www.kaggle.com/datasets/ulrikthygepedersen/co2-emissions-by-country"
-                                                          target="_blank">CO2 Emissions</a>.
+                The dataset used for this project was: <a
+                    href="https://www.kaggle.com/datasets/ulrikthygepedersen/co2-emissions-by-country"
+                    target="_blank">CO2 Emissions</a>.
             </p>
 
             <h3><em><u> <span style="color: rgb(243, 164, 85);">Methane Emissions</span></u></em></h3>
@@ -128,8 +136,9 @@
             </p>
 
             <p>
-                The dataset used for this project was: <a href="https://www.kaggle.com/datasets/kkhandekar/methane-emissions-across-the-world-19902018"
-                                                          target="_blank">Methane Emissions Across The World (1990-2018)</a>.
+                The dataset used for this project was: <a
+                    href="https://www.kaggle.com/datasets/kkhandekar/methane-emissions-across-the-world-19902018"
+                    target="_blank">Methane Emissions Across The World (1990-2018)</a>.
             </p>
 
             <h3><em><u> <span style="color: rgb(125, 178, 105);">Deforestation Rates</span></u></em></h3>
@@ -141,8 +150,9 @@
             </p>
 
             <p>
-                The dataset used for this project was: <a href="https://www.kaggle.com/datasets/chiticariucristian/deforestation-and-forest-loss"
-                                                          target="_blank">Deforestation and Forest Loss</a>.
+                The dataset used for this project was: <a
+                    href="https://www.kaggle.com/datasets/chiticariucristian/deforestation-and-forest-loss"
+                    target="_blank">Deforestation and Forest Loss</a>.
             </p>
             <h2><em><u>How Do We Measure Climate Change?</u></em></h2>
             <h3><em><u> <span style="color: rgb(191, 114, 114);">Global Temperature</span></u></em></h3>
@@ -155,8 +165,9 @@
             </p>
 
             <p>
-                The dataset used for this project was: <a href="https://www.kaggle.com/datasets/jawadawan/global-warming-trends-1961-2022"
-                                                          target="_blank">Global Warming Trends (1961-2022)</a>.
+                The dataset used for this project was: <a
+                    href="https://www.kaggle.com/datasets/jawadawan/global-warming-trends-1961-2022"
+                    target="_blank">Global Warming Trends (1961-2022)</a>.
             </p>
 
         </details>
@@ -167,13 +178,14 @@
                     from the year 1990 to 2015:</b></p>
             <div id="map-interaction-container">
                 <div>
-                    <button class="factor-button" id="co2-button">CO<sub>2</sub></button>
-                    <button class="factor-button" id="methane-button">Methane</button>
-                    <button class="factor-button" id="deforestation-button">Deforestation</button>
-                    <button class="factor-button" id="temperature-button">Temperature</button>
+                    <button class="factor-button factor-button-selected" id="co2-button">CO2</button>
+                    <button class="factor-button factor-button-unselected" id="methane-button">Methane</button>
+                    <button class="factor-button factor-button-unselected"
+                        id="deforestation-button">Deforestation</button>
+                    <button class="factor-button factor-button-unselected" id="temperature-button">Temperature</button>
                 </div>
                 <div id="year-slider-container">
-                    <input type="range" id="year-slider" min="1990" max="2015" value="1990" step="1">
+                    <input type="range" id="year-slider" min="1990" max="2015" value="1990">
                     <svg id="year-slider-labels"></svg>
                 </div>
             </div>
@@ -205,9 +217,12 @@
 
             <h2><b><u>Factor Rankings</u></b></h2>
             <p>The following list ranks how much each factor contributes to the rise in global temperature:</p>
-            <h3><b><span style="color: rgb(235, 120, 54);"> 1. </span></b> CO2 Emissions:</h3> CO2 Emissions account for about 76% of total greenhouse gas emissions.
-            <h3><b><span style="color: rgb(235, 120, 54);"> 2. </span></b> Methane Emissions:</h3> Methane Emissions account for about 16% of total greenhouse gas emissions.
-            <h3><b><span style="color: rgb(235, 120, 54);"> 3. </span></b>Deforestation Rates:</h3> Deforestation accounts for 12-20% of global greenhouse gas emissions.
+            <h3><b><span style="color: rgb(235, 120, 54);"> 1. </span></b> CO2 Emissions:</h3> CO2 Emissions account for
+            about 76% of total greenhouse gas emissions.
+            <h3><b><span style="color: rgb(235, 120, 54);"> 2. </span></b> Methane Emissions:</h3> Methane Emissions
+            account for about 16% of total greenhouse gas emissions.
+            <h3><b><span style="color: rgb(235, 120, 54);"> 3. </span></b>Deforestation Rates:</h3> Deforestation
+            accounts for 12-20% of global greenhouse gas emissions.
 
             <p>
                 During the creation of the project, a question was asked: <b>

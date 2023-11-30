@@ -21,7 +21,13 @@ class LineChartVis {
      * Draws a line chart based on the provided data.
      */
     drawLineChart() {
-        const data = d3.filter(this.globalApplicationState.data, d => d.country_code === this.globalApplicationState.selectedLocations[0]).sort((a, b) => new Date(a.year) - new Date(b.year));
+        let data;
+        if (this.globalApplicationState.worldTempCheckbox) {
+            data = this.globalApplicationState.data.sort((a, b) => new Date(a.year) - new Date(b.year));
+        }
+        else {
+            data = d3.filter(this.globalApplicationState.data, d => d.country_code === this.globalApplicationState.selectedLocations[0]).sort((a, b) => new Date(a.year) - new Date(b.year));
+        }
         const lineChart = d3.select('#line-chart')
             .attr('width', LINE_CHART_WIDTH + MARGIN.left)
             .attr('height', LINE_CHART_HEIGHT + MARGIN.bottom * 2);

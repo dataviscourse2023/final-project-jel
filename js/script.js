@@ -34,7 +34,8 @@ const globalApplicationState = {
     data: null,
     mapData: null,
     worldMap: null,
-    lineChart: null
+    lineChart: null,
+    worldTempCheckbox: false
 };
 
 // ******* CONSTANTS *******
@@ -53,13 +54,13 @@ const globalConstants = {
     }
 };
 
-const dataArrayNumber = {
+const dataArrayIndex = {
     number: {
         co2: 0,
         methane: 1,
         deforestation: 2,
         temperature: 3
-    }    
+    }
 };
 
 //******* APPLICATION MOUNTING *******
@@ -78,45 +79,76 @@ loadData().then((loadedData) => {
 
     d3.select('#co2-button')
         .on('click', () => {
+            d3.select('.factor-button-selected').attr('class', 'factor-button factor-button-unselected');
+            d3.select('#co2-button').attr('class', 'factor-button factor-button-selected');
             globalApplicationState.data = d3.filter(loadedData.dataArrays[0], d => d.year >= START_DATE && d.year <= END_DATE);
             globalApplicationState.selectedFactor = 'co2';
+            d3.select('#world-temp-checkbox-container').style('visibility', 'hidden');
             worldMap.updateMap();
         });
 
     d3.select('#methane-button')
         .on('click', () => {
+            d3.select('.factor-button-selected').attr('class', 'factor-button factor-button-unselected');
+            d3.select('#methane-button').attr('class', 'factor-button factor-button-selected');
             globalApplicationState.data = d3.filter(loadedData.dataArrays[1], d => d.year >= START_DATE && d.year <= END_DATE && d.sector === 'Total excluding LUCF');
             globalApplicationState.selectedFactor = 'methane';
+            d3.select('#world-temp-checkbox-container').style('visibility', 'hidden');
             worldMap.updateMap();
         });
 
     d3.select('#deforestation-button')
         .on('click', () => {
+            d3.select('.factor-button-selected').attr('class', 'factor-button factor-button-unselected');
+            d3.select('#deforestation-button').attr('class', 'factor-button factor-button-selected');
             globalApplicationState.data = d3.filter(loadedData.dataArrays[2], d => d.year >= START_DATE && d.year <= END_DATE);
             globalApplicationState.selectedFactor = 'deforestation';
+            d3.select('#world-temp-checkbox-container').style('visibility', 'hidden');
             worldMap.updateMap();
         });
 
     d3.select('#temperature-button')
         .on('click', () => {
+            d3.select('.factor-button-selected').attr('class', 'factor-button factor-button-unselected');
+            d3.select('#temperature-button').attr('class', 'factor-button factor-button-selected');
             globalApplicationState.data = d3.filter(loadedData.dataArrays[3], d => d.year >= START_DATE && d.year <= END_DATE);
             globalApplicationState.selectedFactor = 'temperature';
+            d3.select('#world-temp-checkbox-container').style('visibility', 'visible');
             worldMap.updateMap();
         });
 
-    // d3.select('#world-temp-checkbox')
-    //     .on('change', (event) => {
-    //         if (event.target.checked) {
-    //             globalApplicationState.data = d3.filter(loadedData.dataArrays[3], d => d.year >= START_DATE && d.year <= END_DATE && d.country_code === 'WRLD');
-    //             globalApplicationState.previousSelectedFactor = globalApplicationState.selectedFactor;
-    //             globalApplicationState.selectedFactor = 'temperature';
-    //             lineChart.drawLineChart();
-    //         } else {
-    //             globalApplicationState.selectedFactor = globalApplicationState.previousSelectedFactor;
-    //             globalApplicationState.data = d3.filter(loadedData.dataArrays[dataArrayNumber.number[globalApplicationState.selectedFactor]], d => d.year >= START_DATE && d.year <= END_DATE);
-    //             lineChart.drawLineChart();
-    //         }
-    //     });
+    d3.select('#close-modal-button')
+        .on('click', () => {
+            closeModalTemperature();
+        });
+
+    d3.select('body').on('click', (event) => {
+        if (event.target === modal) {
+            closeModalTemperature();
+        }
+
+        function closeModalTemperature() {
+            if (globalApplicationState.selectedFactor === 'temperature') {
+                d3.select('#world-temp-checkbox').property('checked', false);
+                globalApplicationState.worldTempCheckbox = false;
+                globalApplicationState.data = d3.filter(loadedData.dataArrays[3], d => d.year >= START_DATE && d.year <= END_DATE);
+            }
+            modal.style.display = 'none';
+        }
+    });
+
+    d3.select('#world-temp-checkbox')
+        .on('change', (event) => {
+            if (event.target.checked) {
+                globalApplicationState.worldTempCheckbox = true;
+                globalApplicationState.data = d3.filter(loadedData.dataArrays[3], d => d.year >= START_DATE && d.year <= END_DATE && d.country_code === 'WRLD');
+                lineChart.drawLineChart();
+            } else {
+                globalApplicationState.worldTempCheckbox = false;
+                globalApplicationState.data = d3.filter(loadedData.dataArrays[dataArrayIndex.number[globalApplicationState.selectedFactor]], d => d.year >= START_DATE && d.year <= END_DATE);
+                lineChart.drawLineChart();
+            }
+        });
 });
 
 // Get modal element
@@ -124,20 +156,3 @@ const modal = document.getElementById('country-modal');
 
 // Get the button that opens the modal
 const openModalBtn = document.getElementById('open-modal-button');
-
-// Get the element that closes the modal
-const closeModalBtn = document.getElementById('close-modal-button');
-
-// Close the modal
-closeModalBtn.addEventListener('click', () => {
-    d3.select('#world-temp-checkbox').property('checked', false);
-    modal.style.display = 'none';
-});
-
-// Close the modal if the user clicks outside of it
-window.addEventListener('click', (event) => {
-    if (event.target === modal) {
-        d3.select('#world-temp-checkbox').property('checked', false);
-        modal.style.display = 'none';
-    }
-});
