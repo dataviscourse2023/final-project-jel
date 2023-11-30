@@ -126,16 +126,16 @@ loadData().then((loadedData) => {
         if (event.target === modal) {
             closeModalTemperature();
         }
-
-        function closeModalTemperature() {
-            if (globalApplicationState.selectedFactor === 'temperature') {
-                d3.select('#world-temp-checkbox').property('checked', false);
-                globalApplicationState.worldTempCheckbox = false;
-                globalApplicationState.data = d3.filter(loadedData.dataArrays[3], d => d.year >= START_DATE && d.year <= END_DATE);
-            }
-            modal.style.display = 'none';
-        }
     });
+
+    function closeModalTemperature() {
+        if (globalApplicationState.selectedFactor === 'temperature') {
+            d3.select('#world-temp-checkbox').property('checked', false);
+            globalApplicationState.worldTempCheckbox = false;
+            globalApplicationState.data = d3.filter(loadedData.dataArrays[3], d => d.year >= START_DATE && d.year <= END_DATE);
+        }
+        modal.style.display = 'none';
+    }
 
     d3.select('#world-temp-checkbox')
         .on('change', (event) => {
