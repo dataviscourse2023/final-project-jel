@@ -19,7 +19,7 @@ async function loadData() {
     const co2EmissionsData = await d3.csv('data/co2_emissions.csv');
     const methaneEmissionsData = await d3.csv('data/methane_emissions.csv');
     const deforestationData = await d3.csv('data/net_forest.csv');
-    const temperatureData = await d3.csv('data/surface_tempurature.csv');
+    const temperatureData = await d3.csv('data/surface_temperature.csv');
     const dataArrays = [co2EmissionsData, methaneEmissionsData, deforestationData, temperatureData];
     const mapData = await d3.json('data/world.json');
     return { dataArrays, mapData };
@@ -28,11 +28,13 @@ async function loadData() {
 // ******* STATE MANAGEMENT *******
 const globalApplicationState = {
     selectedLocations: [],
+    previousSelectedLocations: [],
     selectedFactor: 'co2',
+    previousSelectedFactor: 'co2',
     data: null,
     mapData: null,
     worldMap: null,
-    lineChart: null,
+    lineChart: null
 };
 
 // ******* CONSTANTS *******
@@ -49,6 +51,15 @@ const globalConstants = {
         deforestation: 'Net Forest Conversion (Mha)',
         temperature: 'Surface Temperature Anomaly (°C)'
     }
+};
+
+const dataArrayNumber = {
+    number: {
+        co2: 0,
+        methane: 1,
+        deforestation: 2,
+        temperature: 3
+    }    
 };
 
 //******* APPLICATION MOUNTING *******
@@ -74,7 +85,6 @@ loadData().then((loadedData) => {
 
     d3.select('#methane-button')
         .on('click', () => {
-
             globalApplicationState.data = d3.filter(loadedData.dataArrays[1], d => d.year >= START_DATE && d.year <= END_DATE && d.sector === 'Total excluding LUCF');
             globalApplicationState.selectedFactor = 'methane';
             worldMap.updateMap();
@@ -93,6 +103,20 @@ loadData().then((loadedData) => {
             globalApplicationState.selectedFactor = 'temperature';
             worldMap.updateMap();
         });
+
+    // d3.select('#world-temp-checkbox')
+    //     .on('change', (event) => {
+    //         if (event.target.checked) {
+    //             globalApplicationState.data = d3.filter(loadedData.dataArrays[3], d => d.year >= START_DATE && d.year <= END_DATE && d.country_code === 'WRLD');
+    //             globalApplicationState.previousSelectedFactor = globalApplicationState.selectedFactor;
+    //             globalApplicationState.selectedFactor = 'temperature';
+    //             lineChart.drawLineChart();
+    //         } else {
+    //             globalApplicationState.selectedFactor = globalApplicationState.previousSelectedFactor;
+    //             globalApplicationState.data = d3.filter(loadedData.dataArrays[dataArrayNumber.number[globalApplicationState.selectedFactor]], d => d.year >= START_DATE && d.year <= END_DATE);
+    //             lineChart.drawLineChart();
+    //         }
+    //     });
 });
 
 // Get modal element
@@ -106,12 +130,14 @@ const closeModalBtn = document.getElementById('close-modal-button');
 
 // Close the modal
 closeModalBtn.addEventListener('click', () => {
+    d3.select('#world-temp-checkbox').property('checked', false);
     modal.style.display = 'none';
 });
 
 // Close the modal if the user clicks outside of it
 window.addEventListener('click', (event) => {
     if (event.target === modal) {
+        d3.select('#world-temp-checkbox').property('checked', false);
         modal.style.display = 'none';
     }
 });
