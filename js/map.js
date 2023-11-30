@@ -1,4 +1,4 @@
-/** Class representing the map view.
+﻿/** Class representing the map view.
  * Adapted from Visualization for Data Science Homework 4
  */
 class MapVis {
@@ -131,10 +131,11 @@ class MapVis {
                         .style('display', 'block')
                         .style('left', iconX + window.scrollX + 10 + 'px')
                         .style('top', iconY + window.scrollY - 125 + 'px')
-                        .html('Your tooltip content here.Your tooltip content here.Your tooltip content here.' +
-                            'Your tooltip content here.Your tooltip content here.Your tooltip content here.' +
-                            'Your tooltip content here.Your tooltip content here.Your tooltip content here.' +
-                            'Your tooltip content here.Your tooltip content here.Your tooltip content here.')
+                        .html('<b>C02 Emissions in (kt):</b> Kilitons of country output of C02 emissions per year.' + '<br>' +
+                        '<b>Methane Emissions(CO₂ equivalents):</b> Methane measured in Metric tons of its C02 equivalent damage.' + '<br>' +
+                        '<b>Net Forest Conversion (Mha):</b> Net Change in Forest Area (Downward graphs mean declining forest area)' + '<br>' +
+                        '<b>Surface Temperature Anomaly (°C):</b> The annual surface temperature (in degrees Celsius) for the corresponding year and country.'
+                         )
                         .transition()
                         .duration(250)
                         .style('opacity', 1);
