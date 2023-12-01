@@ -45,7 +45,8 @@ Coding assistance provided by GitHub Copilot.
 
  ## Non-obvious Features:
  - The user can click on a category name to expand or collapse it.
- - The user can click on a country to see line chart of the selected factor for that country.
-   - To close the modal, the user can click on the 'x' in the top right corner of the modal or click anywhere outside of the modal.
- - Map colors only display for certain dates for deforestation. This is because the data for deforestation is only available for certain years. For deforestation, the slider will only display years for which data is available.
- - The user can mouseover the info icon to see a tooltip with information about the selected factor.
+ - The user can click on a country to see a line chart of the selected factor for that country. Along with the linechart exists a trendline to better indicate the growth rate of change.
+   - To close the model, the user can click on the 'x' in the top right corner of the model or click anywhere outside of the model.
+ - Map colors only display for certain dates for deforestation. Countries without data are represented with a grey color. This is because the data for deforestation is only available for certain years. For deforestation, the slider will only display years for which data is available.
+   - There exists a special feature located under the temperature tab. When a country is chosen under the temperature tab, a checkbox appears in the bottom left corner. When selected, this will display a line chart of the global surface temperature anomaly of the world overtime.
+ - Located next to the color scale, there exists an information button. When hovering over the icon, information will be displayed depending on the factor selected.
