@@ -34,8 +34,6 @@
   - D3.js in Action, Second Edition, Chapter 10, Listing 10.2
   - Info icon: https://icons.getbootstrap.com/icons/info-circle/
 
-Coding assistance provided by GitHub Copilot.
-
 ## Data Sources:
  - `co2_emissions.csv`: https://www.kaggle.com/datasets/ulrikthygepedersen/co2-emissions-by-country
  - `methane_emissions.csv`: https://www.kaggle.com/datasets/kkhandekar/methane-emissions-across-the-world-19902018
