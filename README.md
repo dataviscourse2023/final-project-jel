@@ -1,7 +1,8 @@
 # Climate Change: Factors and Rates
 ### By: Ellery Gresham, Jeremy Reynolds, and Luke Schreiber
 ### https://dataviscourse2023.github.io/final-project-jel/
-### https://www.youtube.com/watch?v=QBHQ58Himuw 
+### Video Presentation: https://www.youtube.com/watch?v=QBHQ58Himuw 
+### Process Book: https://docs.google.com/document/d/1jyVGNowgt3giTvSIweeks_rxNPQpFj8Kul20zNdkUeo/edit?usp=sharing
 
 ## Code:
 - `js/script.js` contains the start up code for the project, and was adapted from `script.js` for Homework 4.
