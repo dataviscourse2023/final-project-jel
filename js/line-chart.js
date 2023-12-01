@@ -7,10 +7,11 @@ const LINE_CHART_HEIGHT = 500 - MARGIN.bottom - MARGIN.top;
 /** Class representing the line chart visualizations.
  */
 class LineChartVis {
-
     /**
-     * Creates a Line Chart Visualzation 
-     * @param globalApplicationState 
+     * Represents a LineChart object.
+     * @constructor
+     * @param {Object} globalApplicationState - The global application state.
+     * @param {Object} globalConstants - The global constants.
      */
     constructor(globalApplicationState, globalConstants) {
         this.globalApplicationState = globalApplicationState;

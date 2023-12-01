@@ -3,8 +3,10 @@
  */
 class MapVis {
     /**
-     * Creates a Map Visuzation
-     * @param globalApplicationState The shared global application state (has the data and the line chart instance in it)
+     * Represents a Map object.
+     * @constructor
+     * @param {Object} globalApplicationState - The global application state.
+     * @param {Object} globalConstants - The global constants.
      */
     constructor(globalApplicationState, globalConstants) {
         this.globalApplicationState = globalApplicationState;
@@ -77,6 +79,7 @@ class MapVis {
                     .text(() => labels[selectedFactor])
                     .attr('class', 'legend-title-text');
 
+                    // Append info icon
                 if (titleGroup.select('svg').empty()) {
                     drawInfoIcon();
                 } else {
@@ -100,7 +103,7 @@ class MapVis {
                             showTooltip(event);
                         });
 
-                    // https://icons.getbootstrap.com/icons/info-circle/
+                    // Source: https://icons.getbootstrap.com/icons/info-circle/
                     // Append the first path to the SVG
                     infoIcon.append('path')
                         .attr('d', 'M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16')
@@ -127,21 +130,18 @@ class MapVis {
                     const iconX = d3.select('.bi').node().getBoundingClientRect().x;
                     const iconY = d3.select('.bi').node().getBoundingClientRect().y;
 
+                    // Display the tooltip
                     d3.select('#tooltip')
                         .style('display', 'block')
-                        .style('left', iconX + window.scrollX + 10 + 'px')
-                        .style('top', iconY + window.scrollY - 125 + 'px')
-                        .html('<b>C02 Emissions in (kt):</b> Kilitons of country output of C02 emissions per year.' + '<br>' +
-                        '<b>Methane Emissions(CO₂ equivalents):</b> Methane measured in Metric tons of its C02 equivalent damage.' + '<br>' +
-                        '<b>Net Forest Conversion (Mha):</b> Net Change in Forest Area (Downward graphs mean declining forest area)' + '<br>' +
-                        '<b>Surface Temperature Anomaly (°C):</b> The annual surface temperature (in degrees Celsius) for the corresponding year and country.'
-                         )
+                        .style('left', iconX + window.scrollX + 15 + 'px')
+                        .style('top', iconY + window.scrollY - 30 + 'px')
+                        .html(globalConstants.toolTipContents[globalApplicationState.selectedFactor])
                         .transition()
                         .duration(250)
                         .style('opacity', 1);
                 }
 
-                // Hide tooltip
+                // Hide the tooltip
                 d3.select('body').on('mouseout', function (event) {
                     const outsideTooltip = !document.getElementById('tooltip').contains(event.target);
                     const notIconClick = !d3.select(event.target).classed('bi-info-circle');
@@ -199,13 +199,15 @@ class MapVis {
         const countries = this.countries.selectAll('.country');
         this.getMinMaxValues();
 
+        // Set up the color scale
         if (!this.colorScale) {
-            this.colorScale = d3.scaleSequential(d3.interpolateWarm) // Try d3.interpolateTurbo
+            this.colorScale = d3.scaleSequential(d3.interpolateWarm)
                 .domain([this.minValue, this.maxValue]);
         } else {
             this.colorScale.domain([this.minValue, this.maxValue]);
         }
 
+        // Update the fill color of the countries based on the selected year
         countries.style('fill', d => {
             const countryMaxValue = this.calculateMaxValues(year).get(d.id);
             if (countryMaxValue !== undefined) {
@@ -226,11 +228,11 @@ class MapVis {
      * @returns {Map<string, number>} - A map of country codes to maximum values.
      */
     calculateMaxValues(year) {
-        const allowedYears = [1990, 2000, 2010, 2015];
+        const allowedYears = [1990, 2000, 2010, 2015]; // Allowed years for deforestation
         if (this.globalApplicationState.selectedFactor === 'deforestation') {
-            const closest = allowedYears.reduce((prev, curr) => (Math.abs(curr - year) < Math.abs(prev - year) ? curr : prev));
+            const closest = allowedYears.reduce((prev, curr) => (Math.abs(curr - year) < Math.abs(prev - year) ? curr : prev)); // Find the closest allowed year
             return d3.rollup(
-                this.globalApplicationState.data.filter(d => +d.year === closest),
+                this.globalApplicationState.data.filter(d => +d.year === closest), // Filter the data to only include the closest allowed year
                 v => d3.max(v, d => +d.value),
                 d => d.country_code
             );
@@ -264,18 +266,18 @@ class MapVis {
         let years;
 
         if (selectedFactor === 'deforestation') {
-            years = [1990, 2000, 2010, 2015];
+            years = [1990, 2000, 2010, 2015]; // Allowed years for deforestation
             yearSlider.attr('min', Math.min(...years))
                 .attr('max', Math.max(...years))
                 .attr('step', 5)
                 .on('input', () => {
                     const year = yearSlider.property('value');
-                    const closest = years.reduce((prev, curr) => (Math.abs(curr - year) < Math.abs(prev - year) ? curr : prev));
+                    const closest = years.reduce((prev, curr) => (Math.abs(curr - year) < Math.abs(prev - year) ? curr : prev)); // Find the closest allowed year
                     this.value = closest;
                     this.updateMap(String(closest));
                 });
         } else {
-            years = [...new Set(this.globalApplicationState.data.map(d => d.year))].filter(d => d % 5 === 0);
+            years = [...new Set(this.globalApplicationState.data.map(d => d.year))].filter(d => d % 5 === 0); // 5 year increments
             yearSlider.attr('step', 1)
                 .attr('max', 2015)
                 .on('input', () => {
@@ -292,9 +294,9 @@ class MapVis {
             .attr('x', (d, i) => {
                 if (selectedFactor === 'deforestation') {
                     if (d < 2015) {
-                        return i * (sliderWidth - 21.03) / 2.5;
+                        return i * (sliderWidth - 21.03) / 2.5; // Adjust the spacing between labels for 1990, 2000, and 2010
                     } else {
-                        return i * (sliderWidth - 21.03) / 3;
+                        return i * (sliderWidth - 21.03) / 3; // Adjust the spacing between labels for 2015
                     }
                 } else {
                     return i * (sliderWidth - 21.03) / 5;

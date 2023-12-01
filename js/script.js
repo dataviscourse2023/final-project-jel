@@ -51,9 +51,16 @@ const globalConstants = {
         methane: 'Methane Emissions (CO₂ equivalents)',
         deforestation: 'Net Forest Conversion (Mha)',
         temperature: 'Surface Temperature Anomaly (°C)'
+    },
+    toolTipContents: {
+        co2: 'Kilitons of country output of CO₂ emissions per year.',
+        methane: 'Methane measured in Metric tons of its CO₂ equivalent damage.',
+        deforestation: 'Net change in forest area measured in Million Hectares (Downward graphs mean declining forest area).',
+        temperature: 'The surface temperature anomaly relative to a global mean baseline (in degrees Celsius) for the corresponding year and country.'
     }
 };
 
+// Indexes for accessing the data arrays
 const dataArrayIndex = {
     number: {
         co2: 0,
@@ -77,6 +84,7 @@ loadData().then((loadedData) => {
     globalApplicationState.worldMap = worldMap;
     globalApplicationState.lineChart = lineChart;
 
+    // Event handler for the co2 button
     d3.select('#co2-button')
         .on('click', () => {
             d3.select('.factor-button-selected').attr('class', 'factor-button factor-button-unselected');
@@ -87,6 +95,7 @@ loadData().then((loadedData) => {
             worldMap.updateMap();
         });
 
+    // Event handler for the methane button
     d3.select('#methane-button')
         .on('click', () => {
             d3.select('.factor-button-selected').attr('class', 'factor-button factor-button-unselected');
@@ -97,6 +106,7 @@ loadData().then((loadedData) => {
             worldMap.updateMap();
         });
 
+    // Event handler for the deforestation button
     d3.select('#deforestation-button')
         .on('click', () => {
             d3.select('.factor-button-selected').attr('class', 'factor-button factor-button-unselected');
@@ -107,6 +117,7 @@ loadData().then((loadedData) => {
             worldMap.updateMap();
         });
 
+    // Event handler for the temperature button
     d3.select('#temperature-button')
         .on('click', () => {
             d3.select('.factor-button-selected').attr('class', 'factor-button factor-button-unselected');
@@ -117,17 +128,20 @@ loadData().then((loadedData) => {
             worldMap.updateMap();
         });
 
+    // Event handler for closing the modal via the close button
     d3.select('#close-modal-button')
         .on('click', () => {
             closeModalTemperature();
         });
 
+    // Event handler for closing the modal via clicking outside the modal
     d3.select('body').on('click', (event) => {
         if (event.target === modal) {
             closeModalTemperature();
         }
     });
 
+    // Function to close the modal when the user clicks on the close button or outside the modal
     function closeModalTemperature() {
         if (globalApplicationState.selectedFactor === 'temperature') {
             d3.select('#world-temp-checkbox').property('checked', false);
@@ -137,6 +151,7 @@ loadData().then((loadedData) => {
         modal.style.display = 'none';
     }
 
+    // Event handler for the world temperature checkbox
     d3.select('#world-temp-checkbox')
         .on('change', (event) => {
             if (event.target.checked) {
